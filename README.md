@@ -8,7 +8,7 @@
 
 ## Problem
 
-Indonesia runs on community finance. Arisan circles, koperasi, patungan: millions of people already pool money with people they trust. But these systems live in notebooks and chat groups. Records get lost, treasurers become single points of failure, funds sit idle earning nothing, and nobody outside the circle can verify anything. Formal investment products exist, but the minimum tickets, paperwork, and English-first UX exclude the people who need them most.
+Indonesia runs on community finance. Koperasi, patungan, kas komunitas: millions of people already pool money with people they trust. But these systems live in notebooks and chat groups. Records get lost, treasurers become single points of failure, funds sit idle earning nothing, and nobody outside the circle can verify anything. Formal investment products exist, but the minimum tickets, paperwork, and English-first UX exclude the people who need them most.
 
 ## Why Stellar
 
@@ -19,7 +19,7 @@ Indonesia runs on community finance. Arisan circles, koperasi, patungan: million
 
 ## Target Users
 
-Existing Indonesian community groups: arisan circles, koperasi members, neighborhood and campus communities. People who already pool money socially but have no transparent ledger, no yield, and no portable proof of their collective savings.
+Existing Indonesian community groups: koperasi members, neighborhood and campus communities, builder and hobby communities with a shared kas. People who already pool money socially but have no transparent ledger, no yield, and no portable proof of their collective savings.
 
 ## Proposed Solution
 
