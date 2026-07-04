@@ -65,6 +65,29 @@ npm run dev
 
 4. Open http://localhost:5173, connect Freighter, fund with Friendbot if needed, and send a testnet payment
 
+## Smart Contract: CommunityPool (Soroban)
+
+The first Communify contract, in [`contract/src/lib.rs`](contract/src/lib.rs). An on-chain contribution ledger for a community pool:
+
+| Function | What it does |
+|---|---|
+| `contribute(member, amount, note)` | Record a member's contribution to the pool |
+| `get_contributions()` | List every contribution |
+| `get_total()` | Current pool total |
+| `get_count()` | Number of contributions recorded |
+
+Built and deployed with the Stellar CLI (via [soroban.studio](https://soroban.studio)) at Build on Stellar Bootcamp Bandung:
+
+```bash
+stellar keys generate walletpertama --fund   # funded testnet identity
+stellar contract build
+stellar contract deploy --source-account walletpertama
+```
+
+- **Testnet contract ID:** `PASTE_NEW_CONTRACT_ID_HERE`
+- **Deploy transaction:** `PASTE_STELLAR_EXPERT_TX_LINK_HERE`
+- Invocable on [Stellar Lab](https://lab.stellar.org) → Smart contracts → Contract explorer
+
 ## Screenshots
 
 | State | Screenshot |
