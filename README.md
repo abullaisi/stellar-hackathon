@@ -39,6 +39,41 @@ A community pool on Soroban:
 - Yield/share view per member
 - Simple wallet onboarding for non-crypto users
 
+## What's in this repo now (Level 1 — White Belt)
+
+The first working slice: a Stellar testnet dApp where a member connects their wallet and sends a contribution.
+
+- Connect and disconnect a Freighter wallet (with network check)
+- Fetch and display the connected wallet's XLM balance
+- Fund an unactivated account via Friendbot with one click
+- Send an XLM payment on testnet with clear feedback: pending, success with transaction hash (linked to Stellar Expert), or failure state
+
+**Tech stack:** React + Vite · `@stellar/freighter-api` (wallet) · `@stellar/stellar-sdk` (Horizon testnet)
+
+## Setup (run locally)
+
+1. Install [Node.js 18+](https://nodejs.org) and the [Freighter](https://www.freighter.app/) browser extension
+2. In Freighter, switch the network to **Testnet**
+3. Clone and run:
+
+```bash
+git clone https://github.com/abullaisi/stellar-communify.git
+cd stellar-communify
+npm install
+npm run dev
+```
+
+4. Open http://localhost:5173, connect Freighter, fund with Friendbot if needed, and send a testnet payment
+
+## Screenshots
+
+| State | Screenshot |
+|---|---|
+| Wallet connected | ![Wallet connected](screenshots/wallet-connected.png) |
+| Balance displayed | ![Balance displayed](screenshots/balance.png) |
+| Successful testnet transaction | ![Transaction success](screenshots/tx-success.png) |
+| Transaction result shown to user | ![Transaction result](screenshots/tx-result.png) |
+
 ## Team
 
 - **Imam** — product and design
