@@ -101,7 +101,7 @@ stellar contract deploy --source-account walletpertama
 
 - **Imam** — product and design
 - **Jason** — engineering
-- **Fariz** — engineering
+- **Faris** — engineering
 - **Nada** — business and partnerships
 
 ## Roadmap
