@@ -31,8 +31,9 @@ export default function App() {
   const loadStats = useCallback(async () => {
     try {
       setStats(await getStats());
-    } catch {
+    } catch (err) {
       // stats are progressive enhancement; keep the app usable if RPC hiccups
+      console.warn("Komunify stats unavailable:", err);
     }
   }, []);
 
@@ -294,6 +295,13 @@ export default function App() {
           </div>
         ) : (
           <p className="hint">Loading from testnet…</p>
+        )}
+        {stats?.splitBps && (
+          <p className="hint">
+            On-chain split: {stats.splitBps.owner / 100}% owner ·{" "}
+            {stats.splitBps.manager / 100}% manager ·{" "}
+            {stats.splitBps.platform / 100}% platform
+          </p>
         )}
         <p className="hint">
           Read straight from the{" "}

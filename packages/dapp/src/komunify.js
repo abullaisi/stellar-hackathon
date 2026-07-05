@@ -2,9 +2,10 @@ import { contract } from "@stellar/stellar-sdk";
 import { signWithWallet } from "./wallet";
 import { TESTNET_PASSPHRASE } from "./stellar";
 
-// Komunify subscription + split contract, deployed 2026-07-05
+// Komunify subscription + split contract (contracts/contracts/komunify),
+// deployed to testnet 2026-07-05
 export const CONTRACT_ID =
-  "CCJNKBUQAA7SAANVGJF4WFF4UFXMPCDDZACD5ERHILUHBWEROQZ2BQVC";
+  "CCEKCVWLONZGJEMROPXQ6OAFQTNJIIOJCWSAR6O3TUSSOQT76EC6PL4X";
 
 const RPC_URL = "https://soroban-testnet.stellar.org";
 
@@ -42,6 +43,8 @@ async function getClient(publicKey) {
 }
 
 // Live dashboard reads: count, volume, split config. View calls, no signing.
+// get_config returns Result (not Option) by design: stellar-sdk 13.x cannot
+// parse Option<struct> spec entries, so the contract avoids Option publicly.
 export async function getStats() {
   const client = await getClient(null);
   const [count, volume, config] = await Promise.all([
@@ -49,10 +52,13 @@ export async function getStats() {
     client.get_volume(),
     client.get_config(),
   ]);
+  const cfg = config.result?.unwrap ? config.result.unwrap() : config.result;
   return {
     count: Number(count.result),
     volumeXlm: Number(volume.result) / Number(STROOPS),
-    config: config.result,
+    splitBps: cfg
+      ? { owner: cfg.owner_bps, manager: cfg.manager_bps, platform: cfg.platform_bps }
+      : null,
   };
 }
 

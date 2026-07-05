@@ -72,27 +72,34 @@ npm run dev
 
 4. Open http://localhost:5173, connect Freighter, fund with Friendbot if needed, and send a testnet payment
 
-## Smart Contract: CommunityPool (Soroban)
+## Smart Contract: Komunify (Soroban)
 
-The first Komunify contract, in [`contract/src/lib.rs`](contract/src/lib.rs), written at the bootcamp. An on-chain contribution ledger; it is the code base that the subscription-record + revenue-split contract evolves from:
+The subscription + revenue-split contract, in [`contracts/contracts/komunify/src/lib.rs`](contracts/contracts/komunify/src/lib.rs). One payment in, three transfers out, everything recorded and queryable on-chain:
 
 | Function | What it does |
 |---|---|
-| `contribute(member, amount, note)` | Record a member's contribution to the pool |
-| `get_contributions()` | List every contribution |
-| `get_total()` | Current pool total |
-| `get_count()` | Number of contributions recorded |
+| `subscribe(member, amount)` | Take a subscription payment and split it on-chain to owner / manager / platform (basis points set at deploy; rounding dust goes to platform so the cuts always sum exactly) |
+| `get_subscribers()` | Every subscription recorded (member, amount, timestamp) |
+| `get_count()` | Number of subscriptions |
+| `get_volume()` | Total volume paid through the contract |
+| `get_config()` | Payout addresses + split percentages, read by the dapp's live stats card |
 
-Built with the Stellar CLI (via [soroban.studio](https://soroban.studio)) at Build on Stellar Bootcamp Bandung:
+Guards: minimum 1 XLM (`AmountTooLow`), split must sum to 100% (`InvalidSplit`, enforced in the constructor), payments move through the Stellar Asset Contract with `require_auth` on the member. Four unit tests cover the split math, rounding, minimum, and constructor validation:
 
 ```bash
-stellar keys generate walletpertama --fund   # funded testnet identity
-stellar contract build
-stellar contract deploy --source-account walletpertama
+cd contracts
+cargo test -p komunify   # 4 passed
+stellar contract build   # target/wasm32v1-none/release/komunify.wasm
 ```
 
-- **Testnet contract ID:** coming with the Level 2 (Yellow Belt) submission, together with a verifiable contract-call transaction hash
-- Invocable on [Stellar Lab](https://lab.stellar.org) → Smart contracts → Contract explorer
+**Live on testnet:**
+
+- **Contract ID:** [`CCEKCVWLONZGJEMROPXQ6OAFQTNJIIOJCWSAR6O3TUSSOQT76EC6PL4X`](https://stellar.expert/explorer/testnet/contract/CCEKCVWLONZGJEMROPXQ6OAFQTNJIIOJCWSAR6O3TUSSOQT76EC6PL4X)
+- **Verified `subscribe` call:** [`1e207d18…46b3`](https://stellar.expert/explorer/testnet/tx/1e207d189037cd4f67401e125fcd033a39bddc2bbc28833ed527ff09fc2046b3) — 10 XLM in, split 7 / 2 / 1 XLM to the three payout addresses in one transaction
+- Split config on this deploy: 70% owner · 20% manager · 10% platform (placeholder economics, set via constructor args)
+- Also invocable on [Stellar Lab](https://lab.stellar.org) → Smart contracts → Contract explorer
+
+The Day 1 bootcamp contribution-ledger contract this evolved from lives in the git history (`contract/` before 2026-07-05).
 
 ## Screenshots
 
