@@ -48,9 +48,13 @@ One subscription on Soroban:
 
 Supporting metrics: active community partners onboarded, subscription renewal rate, GMV of tokenized items sold, total automated disbursement volume on-chain.
 
-## What's in this repo now (Level 1: White Belt)
+## What's in this repo now (Levels 1 + 2 complete)
 
-The first working slice: a Stellar testnet dApp where a member connects their wallet and completes a payment. This flow is the foundation of the subscription payment (Feature 1 above).
+A working end-to-end slice of the product, live at https://komunify.pages.dev on Stellar testnet:
+
+- **Subscribe with on-chain split:** pay one subscription and the Soroban contract splits it 70/20/10 to owner / manager / platform in the same transaction, with pending / success / fail status and the tx hash linked to Stellar Expert
+- **Live traction dashboard:** subscriber count, payment volume, and payout split to date, read straight from the contract
+- **Desktop-first UI** on the SPLIT v4 design system (1080px shell, topbar, stepper, split-flow visual), single-column under 900px
 
 - Connect and disconnect any major Stellar wallet (Freighter, xBull, Albedo, Lobstr, Hana, and more) via a wallet-selection modal
 - Fetch and display the connected wallet's XLM balance
@@ -67,12 +71,14 @@ The first working slice: a Stellar testnet dApp where a member connects their wa
 
 ```bash
 git clone https://github.com/yoms07/stellar-hackathon.git
-cd stellar-hackathon
+cd stellar-hackathon/packages/dapp
 npm install
 npm run dev
 ```
 
-4. Open http://localhost:5173, connect Freighter, fund with Friendbot if needed, and send a testnet payment
+4. Open the printed localhost URL, connect a wallet, fund with Friendbot if needed, and subscribe with testnet XLM
+
+(Or from the repo root with [bun](https://bun.sh): `bun install && bun run dev` runs every package in parallel.)
 
 ## Smart Contract: Komunify (Soroban)
 
@@ -102,6 +108,25 @@ stellar contract build   # target/wasm32v1-none/release/komunify.wasm
 - Also invocable on [Stellar Lab](https://lab.stellar.org) → Smart contracts → Contract explorer
 
 The Day 1 bootcamp contribution-ledger contract this evolved from lives in the git history (`contract/` before 2026-07-05).
+
+## Architecture
+
+```
+stellar-hackathon/
+  contracts/contracts/komunify/   Soroban contract (Rust): subscribe + split + reads, 4 unit tests
+  packages/dapp/                  React + Vite dapp (the live demo): wallet, subscribe, traction
+  packages/web/                   Next.js site (scaffold)
+  packages/contract-client/       generated TypeScript bindings package
+  prototype/                      static clickable prototype, 6 screens (design source of truth with DESIGN.md)
+  brand/                          SPLIT v4 brand board
+```
+
+Data flow: the browser connects a wallet through **Stellar Wallets Kit**, builds contract calls with **`contract.Client` from `@stellar/stellar-sdk`** against **Soroban RPC** (`soroban-testnet.stellar.org`), and signs with the wallet. Balances and Friendbot go through **Horizon**. The `subscribe` call moves XLM through the Stellar Asset Contract to the three payout addresses and publishes an event; the traction cards re-read `get_count` / `get_volume` after every confirmed payment. No backend: the chain is the backend.
+
+## Deployment
+
+- **Frontend:** Cloudflare Pages, project `komunify` → https://komunify.pages.dev. Redeploy: `cd packages/dapp && npm run build && npx wrangler pages deploy dist --project-name komunify`
+- **Contract:** `cd contracts && stellar contract build && stellar contract deploy --wasm target/wasm32v1-none/release/komunify.wasm --source-account <identity> --network testnet -- --token <XLM SAC> --owner <G...> --manager <G...> --platform <G...> --owner_bps 7000 --manager_bps 2000 --platform_bps 1000`. After a redeploy, update `CONTRACT_ID` in `packages/dapp/src/komunify.js` and republish Pages.
 
 ## Screenshots
 
