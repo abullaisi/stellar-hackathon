@@ -5,6 +5,7 @@
 > Status: building. Started at Build on Stellar Bootcamp Bandung (July 4-5, 2026) as "Communify", a community-pool concept; refined into Komunify (PRD v2.0) for the APAC Stellar Hackathon.
 >
 > **Live demo:** https://komunify.pages.dev (Stellar testnet; bring a Freighter/xBull/Albedo wallet set to Testnet)
+> **Clickable prototype (simulated data):** https://komunify-prototype.pages.dev
 
 **Track:** Payment Consumer Applications
 
