@@ -40,7 +40,13 @@ One subscription on Soroban:
 - Tokenized digital listing layer (one or two partner items, subscriber pricing)
 - On-chain traction dashboard (subscribers, volume, payouts, via Horizon)
 
-## What's in this repo now (Level 1 — White Belt)
+## North Star Metric
+
+**Monthly Active Subscribing Members (MASM)** engaging with at least one community benefit or marketplace transaction, reflecting the core value loop: unified access driving real usage and recurring revenue.
+
+Supporting metrics: active community partners onboarded, subscription renewal rate, GMV of tokenized items sold, total automated disbursement volume on-chain.
+
+## What's in this repo now (Level 1: White Belt)
 
 The first working slice: a Stellar testnet dApp where a member connects their wallet and completes a payment. This flow is the foundation of the subscription payment (Feature 1 above).
 
@@ -58,7 +64,7 @@ The first working slice: a Stellar testnet dApp where a member connects their wa
 3. Clone and run:
 
 ```bash
-git clone https://github.com/abullaisi/stellar-hackathon.git
+git clone https://github.com/yoms07/stellar-hackathon.git
 cd stellar-hackathon
 npm install
 npm run dev
@@ -99,13 +105,17 @@ stellar contract deploy --source-account walletpertama
 
 ## Team
 
-- **Imam** — product and design
-- **Jason** — engineering
-- **Faris** — engineering
-- **Nada** — business and partnerships
+- **Imam**: product and design
+- **Jason**: engineering
+- **Faris**: engineering
+- **Nada**: business and partnerships
 
 ## Roadmap
 
 - **MVP:** subscription + entitlement + revenue-split contract on testnet, one guided payment flow, traction dashboard
 - **User acquisition:** pilot with whitelisted Bandung communities via Dev Web3 Bandung and each team member's own community
 - **Mainnet vision:** IDR anchor integration, self-serve partner onboarding, fuller tokenized benefits marketplace
+
+## Version 1.0 Scope (post-hackathon)
+
+Multi-tier subscriptions with per-community benefit bundling, full tokenized RWA and digital product marketplace with discovery, multiple revenue-share rules, historical traction dashboard with exportable reports, self-service partner onboarding, and renewal/drop notifications.
