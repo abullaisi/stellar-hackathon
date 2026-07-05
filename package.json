@@ -1,0 +1,16 @@
+{
+  "name": "komunify",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "bun --parallel -r dev",
+    "build": "bun --parallel -r build",
+    "typecheck": "bun --parallel -r typecheck",
+    "lint": "bun --parallel -r lint",
+    "format": "bun --parallel -r format"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2",
+    "prettier": "^3.4.2"
+  }
+}
