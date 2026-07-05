@@ -57,8 +57,8 @@ The first working slice: a Stellar testnet dApp where a member connects their wa
 3. Clone and run:
 
 ```bash
-git clone https://github.com/abullaisi/stellar-communify.git
-cd stellar-communify
+git clone https://github.com/abullaisi/stellar-hackathon.git
+cd stellar-hackathon
 npm install
 npm run dev
 ```

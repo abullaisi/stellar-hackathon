@@ -64,6 +64,7 @@ header {
 
 .card h2 {
   font-size: 16px;
+  font-weight: 600;
   margin: 0 0 10px;
 }
 
@@ -86,6 +87,7 @@ header {
 }
 
 .label {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.06em;
