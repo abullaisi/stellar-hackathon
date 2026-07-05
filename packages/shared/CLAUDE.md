@@ -12,9 +12,13 @@ Shared TypeScript types and Zod schemas used by both the backend API and fronten
 src/
 ├── index.ts           # Barrel export — everything exported from here
 ├── types.ts           # Shared TypeScript interfaces (ApiResponse, PaginatedResponse)
+├── stellar.ts         # Stellar network config: passphrases + RPC/Horizon URLs per network
 └── schemas/
     └── user.schema.ts # Zod schemas + inferred types for User domain
 ```
+
+> `stellar.ts` is framework-agnostic (no env reads). Apps pick a network via
+> `getNetworkConfig(name)` and supply their own contract id / endpoint overrides.
 
 ## Development Commands
 

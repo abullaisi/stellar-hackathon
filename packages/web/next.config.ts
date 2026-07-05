@@ -1,7 +1,7 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  transpilePackages: ['@komunify/shared'],
+  transpilePackages: ['@komunify/shared', '@komunify/contract-client'],
   reactStrictMode: true,
 };
 
