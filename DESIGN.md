@@ -1,7 +1,7 @@
 # DESIGN.md -- Komunify
 
 > **Sync Rule:** This file exists in two locations and must stay identical.
-> - **Repo:** `/Users/imam/Documents/stellar-communify/DESIGN.md` (lives next to the code)
+> - **Repo:** `/Users/imam/Documents/stellar-hackathon/DESIGN.md` (lives next to the code)
 > - **CTX project:** `products/communify/DESIGN.md` (lives in PM context)
 >
 > When editing, update BOTH files. If they diverge, the repo copy is canonical.
