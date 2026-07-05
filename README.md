@@ -1,47 +1,48 @@
-# Communify
+# Komunify
 
-**Community-owned real-world assets on Stellar.** A digital koperasi where members pool funds together, decide together what to fund, and share the yield together.
+**One subscription. Every community.** Komunify is a consumer payments dApp on Stellar: members pay one subscription to unlock benefits across partner communities, a Soroban contract auto-splits the revenue between platform, project owner, and community manager, and an on-chain dashboard proves the traction.
 
-> Status: ideation. Started at Build on Stellar Bootcamp Bandung (July 4-5, 2026), building toward the APAC Stellar Hackathon.
+> Status: building. Started at Build on Stellar Bootcamp Bandung (July 4-5, 2026) as "Communify", a community-pool concept; refined into Komunify (PRD v2.0) for the APAC Stellar Hackathon.
 
-**Track:** Local Finance & Real-World Access
+**Track:** Payment Consumer Applications
 
 ## Problem
 
-Indonesia runs on community finance. Koperasi, patungan, kas komunitas: millions of people already pool money with people they trust. But these systems live in notebooks and chat groups. Records get lost, treasurers become single points of failure, funds sit idle earning nothing, and nobody outside the circle can verify anything. Formal investment products exist, but the minimum tickets, paperwork, and English-first UX exclude the people who need them most.
+Community members juggle separate subscriptions and memberships across every community they join, so payment friction piles up and the value of belonging gets hard to see. On the other side, community managers and project owners have no simple way to monetize their resources, share partner revenue transparently, or show verifiable traction. Indonesia especially runs on community finance culture (koperasi, patungan, kas komunitas), but the money flows live in notebooks and chat groups: opaque, manual, unverifiable.
 
 ## Why Stellar
 
-- **Asset issuance and a DEX are built into the protocol.** A community pool token doesn't need custom infrastructure.
-- **Transactions cost near zero and settle in seconds**, so small everyday contributions stay economical.
+- **Transactions cost near zero and settle in seconds**, so consumer-scale subscription payments stay economical.
+- **Soroban adds programmable payout logic**: subscription records, entitlements, and automated revenue splits run on-chain instead of in a spreadsheet.
 - **Anchors bridge rupiah to the network**, so members can think in IDR, not crypto.
-- **A growing RWA ecosystem on Stellar** (tokenized funds, lending markets) gives pooled funds somewhere productive to go, through composition instead of reinvention.
+- **Asset issuance and a DEX are built into the protocol**, so tokenized partner items and benefits need no custom infrastructure.
 
 ## Target Users
 
-Existing Indonesian community groups: koperasi members, neighborhood and campus communities, builder and hobby communities with a shared kas. People who already pool money socially but have no transparent ledger, no yield, and no portable proof of their collective savings.
+1. **Community members** who want one payment flow for bundled perks, premium resources, and discounts across the communities they already belong to.
+2. **Community managers** who want to package benefits and receive automated revenue share without manual reconciliation.
+3. **Project owners** who want partner-led growth with transparent payout logic and on-chain proof of engagement.
 
 ## Proposed Solution
 
-A community pool on Soroban:
+One subscription on Soroban:
 
-1. A community creates a pool and invites members.
-2. Members contribute (IDR mental model, stablecoin rails).
-3. Every contribution is recorded on-chain: transparent, verifiable, no single treasurer risk.
-4. Pooled funds are placed into yield-bearing assets in the Stellar ecosystem.
-5. Members vote on what the pool funds next, and yield is shared per contribution.
+1. A member connects a Stellar wallet and pays one subscription on testnet.
+2. The contract records the subscription and activates the member's entitlement.
+3. The same payment triggers an automated revenue split between platform, project owner, and community manager.
+4. Partner benefits (including tokenized items at subscriber discounts) unlock in the member dashboard.
+5. A traction dashboard reads subscriber count, payment volume, and payout events straight from the chain.
 
 ## Core Features (MVP)
 
-- Create and join a community pool
-- On-chain contribution ledger with live pool total
-- Member voting on fund allocation
-- Yield/share view per member
-- Simple wallet onboarding for non-crypto users
+- Unified subscription with multi-benefit access (wallet connect + one testnet payment)
+- Automated fee and reward disbursement (Soroban split contract)
+- Tokenized digital listing layer (one or two partner items, subscriber pricing)
+- On-chain traction dashboard (subscribers, volume, payouts, via Horizon)
 
 ## What's in this repo now (Level 1 — White Belt)
 
-The first working slice: a Stellar testnet dApp where a member connects their wallet and sends a contribution.
+The first working slice: a Stellar testnet dApp where a member connects their wallet and completes a payment. This flow is the foundation of the subscription payment (Feature 1 above).
 
 - Connect and disconnect any major Stellar wallet (Freighter, xBull, Albedo, Lobstr, Hana, and more) via a wallet-selection modal
 - Fetch and display the connected wallet's XLM balance
@@ -67,7 +68,7 @@ npm run dev
 
 ## Smart Contract: CommunityPool (Soroban)
 
-The first Communify contract, in [`contract/src/lib.rs`](contract/src/lib.rs). An on-chain contribution ledger for a community pool:
+The first Komunify contract, in [`contract/src/lib.rs`](contract/src/lib.rs), written at the bootcamp. An on-chain contribution ledger; it is the code base that the subscription-record + revenue-split contract evolves from:
 
 | Function | What it does |
 |---|---|
@@ -76,7 +77,7 @@ The first Communify contract, in [`contract/src/lib.rs`](contract/src/lib.rs). A
 | `get_total()` | Current pool total |
 | `get_count()` | Number of contributions recorded |
 
-Built and deployed with the Stellar CLI (via [soroban.studio](https://soroban.studio)) at Build on Stellar Bootcamp Bandung:
+Built with the Stellar CLI (via [soroban.studio](https://soroban.studio)) at Build on Stellar Bootcamp Bandung:
 
 ```bash
 stellar keys generate walletpertama --fund   # funded testnet identity
@@ -84,8 +85,7 @@ stellar contract build
 stellar contract deploy --source-account walletpertama
 ```
 
-- **Testnet contract ID:** `PASTE_NEW_CONTRACT_ID_HERE`
-- **Deploy transaction:** `PASTE_STELLAR_EXPERT_TX_LINK_HERE`
+- **Testnet contract ID:** coming with the Level 2 (Yellow Belt) submission, together with a verifiable contract-call transaction hash
 - Invocable on [Stellar Lab](https://lab.stellar.org) → Smart contracts → Contract explorer
 
 ## Screenshots
@@ -106,6 +106,6 @@ stellar contract deploy --source-account walletpertama
 
 ## Roadmap
 
-- **MVP:** pool contract on testnet + contribution and voting flow
-- **User acquisition:** pilot with real Bandung communities via Dev Web3 Bandung
-- **Mainnet vision:** IDR anchor integration and curated RWA yield sources
+- **MVP:** subscription + entitlement + revenue-split contract on testnet, one guided payment flow, traction dashboard
+- **User acquisition:** pilot with whitelisted Bandung communities via Dev Web3 Bandung and each team member's own community
+- **Mainnet vision:** IDR anchor integration, self-serve partner onboarding, fuller tokenized benefits marketplace
