@@ -1,4 +1,4 @@
-# DESIGN.md -- Communify
+# DESIGN.md -- Komunify
 
 > **Sync Rule:** This file exists in two locations and must stay identical.
 > - **Repo:** `/Users/imam/Documents/stellar-communify/DESIGN.md` (lives next to the code)
@@ -10,7 +10,7 @@
 > This is the single source of truth for visual patterns.
 > If your edit contradicts this file, your edit is wrong.
 
-Communify is a community subscription payments dApp on Stellar (hackathon MVP). One subscription unlocks partner-community benefits, a Soroban contract splits revenue between partners, and an on-chain dashboard shows traction. PRD by Faris. Team spelling vote pending: Communify vs Komunify.
+Komunify is a community subscription payments dApp on Stellar (hackathon MVP). One subscription unlocks partner-community benefits, a Soroban contract splits revenue between partners, and an on-chain dashboard shows traction. PRD by Faris. Team spelling vote pending: Komunify vs Komunify.
 
 Token structure and component taxonomy are adapted from the **AGENTIC DESIGN SYSTEM v1.1** by agenticui.net (Figma community file): semantic BACKGROUND / CONTENT / BORDER / INPUT / BUTTON token groups, primitive ramps to be added later.
 
@@ -59,7 +59,7 @@ Does this affect the atom itself as a reusable element?
 
 **3. Molecule level (small combos: wallet row, balance block, send form, split row):**
 Which molecules use this atom today? What changes for them?
-> "Changing `--content-accent` touches: primary button fill, logo first letter, input focus border, and the planned Pay CTA and unlocked badge. N molecules affected."
+> "Changing `--color-content-accent` touches: primary button fill, logo first letter, input focus border, and the planned Pay CTA and unlocked badge. N molecules affected."
 
 **4. Organism level (full cards and screens: connect card, balance card, contribution card, dashboard):**
 Which larger sections contain these molecules? Any layout side effects?
@@ -69,6 +69,13 @@ Which larger sections contain these molecules? Any layout side effects?
 
 **If propagating:** update tokens in `App.css` + Section 2-3 of this file, then atoms in `App.css`, then molecule usage in JSX, then verify against `/docs.html`.
 
+### AI-readiness adoption status (the 10 Laws, audited 2026-07-05)
+
+Adopted now: Law 1 semantic naming (classes and components, no Frame-74 equivalents), Law 3 three-tier token plan (semantic live, see Section 2), Law 5 atomic composition, Law 6 variant props match code props (Section 4.3 vocabulary, lowercased in React), Law 8 named slots (header, footer, actions, leading-visual, trailing-actions, children), Law 10 machine rules (`.claude/rules/design-system.md` auto-loads these constraints every session).
+Adopted when Figma work starts: Law 2 (Figma Variables for everything), Law 7 (auto-layout everywhere, 8 layout rules).
+Post-hackathon: Law 4 (DTCG `.tokens.json` with `$description`), Law 9 (Code Connect).
+Audit checklist for reviews: the AI-Ready vs AI-Hostile table in the Design Systems Manual (hardcoded values, monoliths, mixed variant axes, generic names are the four we can violate in code; check every PR against them).
+
 ### Exception
 
 If the team explicitly says "copy the modal from Stellar Wallets Kit" or "use pattern X from Y", skip the check-first ask. External patterns become input by direction only, never by default. The propagation check still applies after implementation.
@@ -77,14 +84,13 @@ If the team explicitly says "copy the modal from Stellar Wallets Kit" or "use pa
 
 ## 1. Visual Theme & Atmosphere
 
-> ## BRAND VOTE PENDING: READ THIS FIRST
+> ## THEME: SPLIT v4, ADOPTED 2026-07-05
 >
-> The brand concept vote between **SPLIT** (dark + gold), **STEMPEL** (ivory + forest green + gold), and **RASI** (indigo + lilac) has NOT happened yet.
-> Until the vote, v0 ships the SPLIT-leaning dark + gold theme that is already live in the app.
-> **The entire theme layer is isolated in CSS custom properties.** When the vote lands, the winning palette is a variable swap in `:root`, not a refactor. Do not hardcode any hex value in a component. If you type a raw color outside the token block, you are creating vote debt.
-> Candidate palette values live in Section 2 and render as `data-theme` preview blocks in `/docs.html`.
+> The working theme is **SPLIT v4**, implemented from the combined brand board (gpt-1 minimal mark composed into the gpt-2 board via i2i on Flora). All color values in Section 2 are SAMPLED from that board render, not estimated. STEMPEL and RASI are archived alternates in Section 2.
+> **The entire theme layer stays isolated in CSS custom properties.** Any future re-theme remains a variable swap in `:root`, not a refactor. Do not hardcode any hex value in a component; raw colors outside the token block are theme debt.
+> Board-derived motifs sanctioned for use: (1) numbered section labels with a gold number and mono uppercase text ("01 LOGO" pattern), (2) the two-tone headline (line one cream, line two gold, per "One payment. / Every community."), (3) the gold flow-glow (`rgba(229,168,74,0.35)`) reserved EXCLUSIVELY for the split-flow visual, never for buttons or decoration.
 
-Communify handles other people's subscription money. The register is dark, calm, financial trust. A near-black blue-gray canvas, elevated card surfaces one step lighter, quiet borders, and exactly one accent (gold `#ffd23f`) doing all the work: the primary action, the logo mark's first letter, the input focus ring. Success, warning, and danger colors appear only as status feedback, never as decoration.
+Komunify handles other people's subscription money. The register is dark, calm, financial trust. A warm true-black canvas (board-sampled, deliberately not blue-tinted), elevated card surfaces one step lighter, quiet borders, and exactly one accent (gold `#e5a84a`) doing all the work: the primary action, the logo mark's first letter, the input focus ring. Success, warning, and danger colors appear only as status feedback, never as decoration.
 
 The app is a single centered 520px column (`.shell`) of stacked cards. Density is moderate: 20px card padding, 16px gaps, generous line-height. Hierarchy comes from type weight and the mono UPPERCASE label signature, not from extra colors or heavy shadows. Numbers (balances, amounts) always render tabular so digits align.
 
@@ -100,50 +106,67 @@ The app is a single centered 520px column (`.shell`) of stacked cards. Density i
 
 ## 2. Color Palette & Roles
 
+### Token architecture (three-tier plan, per the Design Systems Manual)
+
+Naming follows the Design Systems Manual (agenticui.net) tier formats. Reference: CTX `research/frameworks-ux-product-design/design-systems-manual/` (naming cheat sheet + three-tier token architecture).
+
+| Tier | Format | Status here |
+|------|--------|-------------|
+| Primitive | `{category}-{scale}` (e.g. `--color-gold-500`) | PENDING the brand vote. Primitive ramps land with the winning palette; semantic tokens then alias to them. |
+| Semantic | `{category}-{role}-{modifier}` (e.g. `--color-bg-primary`, `--color-content-accent`) | LIVE. This is the tier the app and this file use. Category is front-loaded so tools can parse tier from name. |
+| Component | `{component}-{property}-{variant}-{state}` | Not created. Per the manual: only when a component genuinely needs values the semantic tier cannot express. |
+
+Non-color categories already follow `{category}-{scale}`: `--space-1..7`, `--radius-sm/md/lg/full`. Typography is class-based in v0; tokenize when primitives land. Later export target: DTCG `.tokens.json` with `$value`, `$type`, mandatory `$description` per token (post-hackathon).
+
+
 All tokens live in `:root` in `src/App.css`. The semantic names below are the canonical token names (Agentic DS naming). The "App.css var" column maps to the shorter legacy names currently in the file; when touching the token block, migrate legacy names toward the semantic names rather than adding new short names.
 
 ### Backgrounds
 
 | Token | Value | App.css var | Role |
 |-------|-------|-------------|------|
-| `--bg-primary` | `#0c0f14` | `--bg` | Page background (`body`) |
-| `--bg-elevated` | `#151a22` | `--card` | Card surfaces (`.card`) |
-| `--bg-input` | `#0e1218` | (hardcoded on `input`, `code`) | Input fields and code chips. Promote to a named var when next touched. |
-| `--bg-accent-tint` | `rgba(255,210,63,0.12)` | (not yet in file) | Accent-tinted fills (planned unlocked badge, accent pill variant) |
-| `--bg-success-tint` | `rgba(62,207,142,0.14)` | (inline in `.pill.ok`) | Success pill background |
-| `--bg-warning-tint` | `rgba(255,138,92,0.14)` | (inline in `.pill.warn`) | Warning pill background |
+| `--color-bg-primary` | `#0b0b0a` | same | Page background (`body`) |
+| `--color-bg-elevated` | `#131311` | same | Card surfaces (`.card`) |
+| `--color-bg-input` | `#0d0d0b` | same (promoted 2026-07-05) | Input fields and code chips. Promote to a named var when next touched. |
+| `--color-bg-accent-tint` | `rgba(229,168,74,0.12)` | same (added 2026-07-05) | Accent-tinted fills (planned unlocked badge, accent pill variant) |
+| `--color-bg-success-tint` | `rgba(62,207,142,0.14)` | same (promoted 2026-07-05) | Success pill background |
+| `--color-bg-warning-tint` | `rgba(255,138,92,0.14)` | same (promoted 2026-07-05) | Warning pill background |
 
 ### Content
 
 | Token | Value | App.css var | Role |
 |-------|-------|-------------|------|
-| `--content-primary` | `#e8ecf1` | `--text` | Body text, headings, ghost button labels |
-| `--content-secondary` | `#8b95a3` | `--muted` | Labels, hints, tagline, footer, form label text |
-| `--content-accent` | `#ffd23f` | `--accent` | Primary button fill, logo first letter, focus border |
-| `--content-on-accent` | `#1a1400` | `--accent-text` | Text on accent surfaces (primary button label) |
-| `--content-success` | `#3ecf8e` | `--ok` | Success text, success pill label |
-| `--content-warning` | `#ff8a5c` | `--warn` | Warning text, warning pill label |
-| `--content-danger` | `#ff6b6b` | `--err` | Error text (`.error`) |
+| `--color-content-primary` | `#ecd9c1` | same | Body text, headings, ghost button labels |
+| `--color-content-secondary` | `#928e85` | same | Labels, hints, tagline, footer, form label text |
+| `--color-content-accent` | `#e5a84a` | same | Primary button fill, logo first letter, focus border |
+| `--color-content-on-accent` | `#201607` | same | Text on accent surfaces (primary button label) |
+| `--color-content-success` | `#3ecf8e` | same | Success text, success pill label |
+| `--color-content-warning` | `#ff8a5c` | same | Warning text, warning pill label |
+| `--color-content-danger` | `#ff6b6b` | same | Error text (`.error`) |
 
 ### Border
 
 | Token | Value | App.css var | Role |
 |-------|-------|-------------|------|
-| `--border-medium` | `#262d38` | `--border` | Card borders, input borders, ghost button borders, code chip borders |
-| `--border-accent` | `#ffd23f` | (via `--accent` on `input:focus`) | Focus state border |
+| `--color-border-medium` | `#262521` | same | Card borders, input borders, ghost button borders, code chip borders |
+| `--color-border-accent` | `#e5a84a` | same (promoted 2026-07-05) | Focus state border |
 
-### Candidate palettes (PENDING VOTE)
+### Palette status (updated 2026-07-05)
+
+**SPLIT is the adopted working theme** as of 2026-07-05, implemented from the v4 combined brand board (gpt-1 minimal mark composed into the gpt-2 board via i2i on Flora; hex values SAMPLED from the board render, not estimated). Key sampled anchors: panel dark #0f1110 on #010101 gutters, action gold #e5a84a, mark gold #e8b463, headline cream #e5d1b9, wordmark cream #f1dfca, muted #928e85. Functional colors (success/warning/danger) are unchanged pending a warm-tone pass. STEMPEL and RASI below are archived alternates, kept for reference and possible sub-brand use.
+
+### Candidate palettes (SPLIT adopted; alternates archived)
 
 Documented for the vote. `split` is the live default. Each renders as a `data-theme` preview block in `/docs.html`. Only the winning column ever lands in `:root`.
 
 | Token | split (current default) | stempel (light) | rasi (dark indigo) |
 |-------|------------------------|-----------------|--------------------|
-| `--bg-primary` | `#0c0f14` | `#F4EFE6` | `#0E0C1E` |
-| `--bg-elevated` | `#151a22` | `#FDFBF7` | `#171432` |
-| `--content-primary` | `#e8ecf1` | `#1F2A24` | `#EEEBFF` |
-| `--content-secondary` | `#8b95a3` | `#5C685F` | `#8E88B0` |
-| `--content-accent` | `#ffd23f` | `#1F4D3A` (forest green) | `#A78BFA` (lilac) |
-| `--content-on-accent` | `#1a1400` | `#F4EFE6` | `#14102A` |
+| `--color-bg-primary` | `#0b0b0a` | `#F4EFE6` | `#0E0C1E` |
+| `--color-bg-elevated` | `#131311` | `#FDFBF7` | `#171432` |
+| `--color-content-primary` | `#ecd9c1` | `#1F2A24` | `#EEEBFF` |
+| `--color-content-secondary` | `#928e85` | `#5C685F` | `#8E88B0` |
+| `--color-content-accent` | `#e5a84a` | `#1F4D3A` (forest green) | `#A78BFA` (lilac) |
+| `--color-content-on-accent` | `#201607` | `#F4EFE6` | `#14102A` |
 | Detail | gold IS the accent | gold detail `#B08D3E` | none |
 
 **DO NOT:**
@@ -163,7 +186,7 @@ Documented for the vote. `split` is the live default. Each renders as a `data-th
 
 ### The mono-uppercase-label signature
 
-Micro-labels (`.label`) are 12px UPPERCASE with 0.06em tracking in `--content-secondary`, set in the mono stack. This mono-label-over-sans-body pairing is the Communify type signature, inherited from the Agentic DS (which pairs mono UPPERCASE labels with a clean sans body; its serif headings are NOT adopted in v0, revisit only if STEMPEL wins).
+Micro-labels (`.label`) are 12px UPPERCASE with 0.06em tracking in `--color-content-secondary`, set in the mono stack. This mono-label-over-sans-body pairing is the Komunify type signature, inherited from the Agentic DS (which pairs mono UPPERCASE labels with a clean sans body; its serif headings are NOT adopted in v0, revisit only if STEMPEL wins).
 
 > **Drift resolved (2026-07-05):** `.label` in `src/App.css` now carries the mono stack. Do not add new labels in sans.
 
@@ -172,14 +195,14 @@ Micro-labels (`.label`) are 12px UPPERCASE with 0.06em tracking in `--content-se
 | Role | Size / Weight | Details | Where |
 |------|---------------|---------|-------|
 | Display / balance | 30px / 700 | `font-variant-numeric: tabular-nums`, margin 6px 0 10px | `.balance` |
-| Logo | 28px / 800 | letter-spacing -0.02em, `::first-letter` in `--content-accent` | `.logo` |
+| Logo | 28px / 800 | letter-spacing -0.02em, `::first-letter` in `--color-content-accent` | `.logo` |
 | H2 (card titles) | 16px / 600 | margin 0 0 10px | `.card h2` |
 | Body md | 14px / 400 | line-height 1.5 | `body`, `.tagline`, inputs, buttons |
 | Body sm | 13px / 400 | hints, helper text, error/success messages, form label text | `.hint`, `.error`, `.success`, `label` |
-| Label | 12px / 400 | UPPERCASE, letter-spacing 0.06em, `--content-secondary`, mono stack | `.label` |
+| Label | 12px / 400 | UPPERCASE, letter-spacing 0.06em, `--color-content-secondary`, mono stack | `.label` |
 | Pill label | 11px / 700 | inside `.pill` | `.pill` |
-| Code | 13px mono | on `--bg-input` chip, `--radius-sm` | `code` |
-| Footer | 12px | `--content-secondary`, centered | `footer` |
+| Code | 13px mono | on `--color-bg-input` chip, `--radius-sm` | `code` |
+| Footer | 12px | `--color-content-secondary`, centered | `footer` |
 
 ### Number display
 
@@ -225,13 +248,13 @@ display: flex; flex-direction: column; gap: 16px;
 The single column everything lives in. One `.shell` per page, applied to `<main>`. Do not widen it for new features; dashboard content stacks vertically inside it.
 
 **`.logo` + `.tagline`** (header)
-- `.logo`: 28px / 800, letter-spacing -0.02em. `::first-letter` colored `--content-accent`. This IS the v0 logo treatment; no image mark.
-- `.tagline`: 14px `--content-secondary`, margin 6px 0 0.
+- `.logo`: 28px / 800, letter-spacing -0.02em. `::first-letter` colored `--color-content-accent`. This IS the v0 logo treatment; no image mark.
+- `.tagline`: 14px `--color-content-secondary`, margin 6px 0 0.
 - `header`: centered, margin-bottom 8px.
 
 **`.card`** (surface)
 ```
-background: --bg-elevated; border: 1px solid --border-medium;
+background: --color-bg-elevated; border: 1px solid --color-border-medium;
 border-radius: 14px (--radius-lg); padding: 20px;
 ```
 The only surface in the app. Every feature is a card in the shell stack. Variant `.card.center`: text-align center, padding 36px 20px, used for the empty/connect state. Card titles are `h2` (16px / 600).
@@ -241,31 +264,31 @@ The only surface in the app. Every feature is a card in the shell stack. Variant
 - `.row.tight`: justify flex-start, gap 8, margin-top 4. Used for address + pill, and button pairs.
 
 **`.label`** (micro label)
-12px UPPERCASE, letter-spacing 0.06em, `--content-secondary`. Mono stack per Section 3. Used above the wallet address and the XLM balance. Every stat and field group in planned components gets one.
+12px UPPERCASE, letter-spacing 0.06em, `--color-content-secondary`. Mono stack per Section 3. Used above the wallet address and the XLM balance. Every stat and field group in planned components gets one.
 
 **`.balance`** (display number)
 30px / 700, tabular-nums, margin 6px 0 10px. The pattern for any hero number (subscription price, dashboard volume).
 
 **`.pill` / `.pill.ok` / `.pill.warn`** (status pill)
-11px / 700, radius 999px, padding 3px 9px. `.ok`: `--bg-success-tint` bg + `--content-success` text (used for the TESTNET badge). `.warn`: `--bg-warning-tint` bg + `--content-warning` text. Planned accent variant for unlocked states uses `--bg-accent-tint` + `--content-accent` (propose per Section 0 before adding).
+11px / 700, radius 999px, padding 3px 9px. `.ok`: `--color-bg-success-tint` bg + `--color-content-success` text (used for the TESTNET badge). `.warn`: `--color-bg-warning-tint` bg + `--color-content-warning` text. Planned accent variant for unlocked states uses `--color-bg-accent-tint` + `--color-content-accent` (propose per Section 0 before adding).
 
 **`button`** (primary) and **`button.ghost`** (secondary)
-- Primary: `--content-accent` bg, `--content-on-accent` label, radius 9px, padding 10px 18px, 14px / 700, no border. Hover: `filter: brightness(1.06)`. Disabled: opacity 0.55, `cursor: not-allowed`. One primary action per card maximum (Connect Wallet, Fund with Friendbot, Send XLM today; Pay CTA next).
-- Ghost: transparent bg, `--content-primary` label, 1px `--border-medium` border, weight 600. For secondary actions: Disconnect, Refresh.
+- Primary: `--color-content-accent` bg, `--color-content-on-accent` label, radius 9px, padding 10px 18px, 14px / 700, no border. Hover: `filter: brightness(1.06)`. Disabled: opacity 0.55, `cursor: not-allowed`. One primary action per card maximum (Connect Wallet, Fund with Friendbot, Send XLM today; Pay CTA next).
+- Ghost: transparent bg, `--color-content-primary` label, 1px `--color-border-medium` border, weight 600. For secondary actions: Disconnect, Refresh.
 
 **`input` + `label` wrapper** (form field)
-- `label`: flex column, gap 5px, 13px `--content-secondary`. Wraps the field, label text first.
-- `input`: `--bg-input` bg, 1px `--border-medium`, radius 9px, padding 10px 12px, `--content-primary` text, 14px. Focus: outline none, border-color `--content-accent` (`--border-accent`).
+- `label`: flex column, gap 5px, 13px `--color-content-secondary`. Wraps the field, label text first.
+- `input`: `--color-bg-input` bg, 1px `--color-border-medium`, radius 9px, padding 10px 12px, `--color-content-primary` text, 14px. Focus: outline none, border-color `--color-content-accent` (`--color-border-accent`).
 - `form`: flex column, gap 12.
 
 **`code`** (code chip)
-13px mono on `--bg-input`, 1px `--border-medium`, radius 6px, padding 2px 7px. For wallet addresses (shortened) and tx hashes. Always give full values via `title` when truncating.
+13px mono on `--color-bg-input`, 1px `--color-border-medium`, radius 6px, padding 2px 7px. For wallet addresses (shortened) and tx hashes. Always give full values via `title` when truncating.
 
 **`.hint` / `.error` / `.success`** (feedback text)
-All 13px. `.hint`: `--content-secondary`, margin 8px 0 12px. `.error`: `--content-danger`, margin 10px 0 0. `.success`: `--content-success`, margin 12px 0 0, links inherit color. Feedback text sits inside the card it belongs to, directly under the triggering control.
+All 13px. `.hint`: `--color-content-secondary`, margin 8px 0 12px. `.error`: `--color-content-danger`, margin 10px 0 0. `.success`: `--color-content-success`, margin 12px 0 0, links inherit color. Feedback text sits inside the card it belongs to, directly under the triggering control.
 
 **`footer`**
-12px `--content-secondary`, centered, margin-top 12px, links inherit color. Credits + GitHub link.
+12px `--color-content-secondary`, centered, margin-top 12px, links inherit color. Credits + GitHub link.
 
 ### 4.2 Planned components (from Faris PRD, mapped to Agentic DS taxonomy)
 
@@ -276,15 +299,15 @@ Statuses: **live** (in App.css/App.jsx today), **planned** (build per this table
 | Connect / balance / contribution cards | CARD | live | `.card` stack in `.shell`, see 4.1 |
 | Status pill | BADGE | live | `.pill.ok` / `.pill.warn`, accent variant pending |
 | Subscription card | CARD | planned | `.card` with `.label` ("SUBSCRIPTION"), `.balance`-style price (tabular), one primary Pay CTA |
-| Entitlement / benefit card | CARD + BADGE | planned | `.card` per partner benefit; unlocked state = accent-tint BADGE (`--bg-accent-tint` + `--content-accent`) |
+| Entitlement / benefit card | CARD + BADGE | planned | `.card` per partner benefit; unlocked state = accent-tint BADGE (`--color-bg-accent-tint` + `--color-content-accent`) |
 | Split-allocation row | TABLE (cell-type-progress + cell-type-numeric) | planned | `.row` per partner: name (body md), % + amount as numeric cells (13-14px, tabular-nums), progress cell for share |
 | Dashboard stat chips | CHIP / stat pattern | planned | `.label` over `.balance`-style number (subscriber count, volume), grouped in a `.card` |
 | Partner communities cluster | AVATAR GROUP | planned | Overlapping partner avatars on the subscription and dashboard cards |
-| Subscribe flow indicator | STEPPER | planned | connect > pay > unlocked; active step in `--content-accent`, done in `--content-success`, pending in `--content-secondary` |
-| Tx status notice | TOAST | planned | pending / success / fail; reuses `.hint` / `.success` / `.error` colors on a `--bg-elevated` surface, radius `--radius-md` |
-| Tx pending placeholder | SKELETON | planned | Loading blocks on `--bg-input`, radius matching the element they replace |
-| Wallet select | MODAL | planned | Comes themed from Stellar Wallets Kit; only reconcile its accent with `--content-accent`, do not rebuild |
-| Funding / traction bar | PROGRESS | planned | Track `--bg-input`, fill `--content-accent`, radius `--radius-full` |
+| Subscribe flow indicator | STEPPER | planned | connect > pay > unlocked; active step in `--color-content-accent`, done in `--color-content-success`, pending in `--color-content-secondary` |
+| Tx status notice | TOAST | planned | pending / success / fail; reuses `.hint` / `.success` / `.error` colors on a `--color-bg-elevated` surface, radius `--radius-md` |
+| Tx pending placeholder | SKELETON | planned | Loading blocks on `--color-bg-input`, radius matching the element they replace |
+| Wallet select | MODAL | planned | Comes themed from Stellar Wallets Kit; only reconcile its accent with `--color-content-accent`, do not rebuild |
+| Funding / traction bar | PROGRESS | planned | Track `--color-bg-input`, fill `--color-content-accent`, radius `--radius-full` |
 | Chat | CHAT | n/a | Out of MVP scope |
 | AI thinking states | AI STATES | n/a | Out of MVP scope |
 | Breadcrumbs | BREADCRUMBS | n/a | Single screen, nothing to crumb |
@@ -294,6 +317,26 @@ Statuses: **live** (in App.css/App.jsx today), **planned** (build per this table
 Every planned component, once built: demo in `/docs.html`, spec promoted from this table into a full 4.1-style entry, class in `App.css` if reused.
 
 ---
+
+### 4.3 Component naming vocabulary (from the full Agentic DS read, 2026-07-05)
+
+Variant axes follow the Agentic DS conventions. Use these exact axis names and value vocabularies when speccing or building any Komunify component, so Figma, code, and docs speak one language:
+
+| Axis | Meaning | Canonical values (as used across the DS) |
+|------|---------|-------------------------------------------|
+| `State` | Interaction state only | Default/Enabled, Hover, Focus, Active, Filled, Disabled, Loading |
+| `Behavior` | Selection semantics, separate from State | Selected, Unselected, Indeterminate |
+| `Type` | Semantic tone or structural kind | Toast + helper text: Info, Success, Warning, Error/Destructive · Breadcrumb: Default, Overflow · Nav: Label, Link |
+| `Style` | Visual variant of the same component | Button: Primary, Secondary, Ghost · Tabs: Pill, Rounded, Segmented, Underline |
+| `Size` | Scale step | Large, Medium, Small (buttons, inputs, menus) · lg, sm (badges, tooltips) |
+| `Expanded` / `Open` / `Selected` | Boolean axes | True, False |
+| `Icon position` | Icon placement on buttons | None, Left, Right |
+| `Alignment` | Table cell alignment | Left, Center, Right |
+| `Progress` | Progress bar fill step | 0, 10, 50, 70, 90, 100 |
+
+Key discipline the DS enforces, and we adopt: **State (interaction) is never mixed with Type (tone) or Behavior (selection).** A toast is `Type=Success`, not `State=Success`. A checkbox is `Behavior=Selected, State=Disabled`, two independent axes. Komunify mappings: entitlement badge = `Behavior=Locked/Unlocked` + `State`; tx toast = `Type=Info/Success/Destructive`; split-row = table `cell-type-numeric` + `cell-type-progress` with `State=Loading` while tx pends.
+
+Read-coverage note: all 26 component pages read at the structure + variant-axis level (plus COLORS, TYPOGRAPHY, STYLE TESTER, PLAYGROUND, MISC structurally). Not deep-read: Icons page contents (2,048 icons; category names only: Commerce, Controls, File, Instruments, Time, Toggle, Operations, Navigation, Status, Technology, AI), SOCIAL BUTTON variant list, and Modal (page carries demo frames, no component set). Visual canvas pixels were not screenshot-audited; naming and structure were.
 
 ## 5. Motion
 

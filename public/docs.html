@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Communify Design System v0</title>
+<title>Komunify Design System v0</title>
 <style>
 /* ============================================================
    COMMUNIFY DESIGN SYSTEM v0 -- live specimen page
@@ -15,25 +15,25 @@
   color-scheme: dark;
 
   /* BACKGROUND */
-  --bg-primary: #0c0f14;
-  --bg-elevated: #151a22;
-  --bg-input: #0e1218;
-  --bg-accent-tint: rgba(255, 210, 63, 0.12);
-  --bg-success-tint: rgba(62, 207, 142, 0.14);
-  --bg-warning-tint: rgba(255, 138, 92, 0.14);
+  --color-bg-primary: #0b0b0a;
+  --color-bg-elevated: #131311;
+  --color-bg-input: #0d0d0b;
+  --color-bg-accent-tint: rgba(229, 168, 74, 0.12);
+  --color-bg-success-tint: rgba(62, 207, 142, 0.14);
+  --color-bg-warning-tint: rgba(255, 138, 92, 0.14);
 
   /* CONTENT */
-  --content-primary: #e8ecf1;
-  --content-secondary: #8b95a3;
-  --content-accent: #ffd23f;
-  --content-on-accent: #1a1400;
-  --content-success: #3ecf8e;
-  --content-warning: #ff8a5c;
-  --content-danger: #ff6b6b;
+  --color-content-primary: #ecd9c1;
+  --color-content-secondary: #928e85;
+  --color-content-accent: #e5a84a;
+  --color-content-on-accent: #201607;
+  --color-content-success: #3ecf8e;
+  --color-content-warning: #ff8a5c;
+  --color-content-danger: #ff6b6b;
 
   /* BORDER */
-  --border-medium: #262d38;
-  --border-accent: #ffd23f;
+  --color-border-medium: #262521;
+  --color-border-accent: #e5a84a;
 
   /* RADIUS (Agentic DEFAULT-mode shape) */
   --radius-sm: 6px;
@@ -59,8 +59,8 @@
 
 body {
   margin: 0;
-  background: var(--bg-primary);
-  color: var(--content-primary);
+  background: var(--color-bg-primary);
+  color: var(--color-content-primary);
   font-family: var(--font-body);
   font-size: 14px;
   line-height: 1.5;
@@ -79,7 +79,7 @@ a { color: inherit; }
 
 .masthead {
   padding-bottom: var(--space-6);
-  border-bottom: 1px solid var(--border-medium);
+  border-bottom: 1px solid var(--color-border-medium);
 }
 
 .masthead-top {
@@ -97,16 +97,16 @@ a { color: inherit; }
   letter-spacing: -0.02em;
 }
 
-.masthead h1::first-letter { color: var(--content-accent); }
+.masthead h1::first-letter { color: var(--color-content-accent); }
 
 .badge-v0 {
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.06em;
-  color: var(--content-accent);
-  background: var(--bg-accent-tint);
-  border: 1px solid var(--border-medium);
+  color: var(--color-content-accent);
+  background: var(--color-bg-accent-tint);
+  border: 1px solid var(--color-border-medium);
   border-radius: var(--radius-full);
   padding: 3px 10px;
   position: relative;
@@ -123,27 +123,27 @@ a { color: inherit; }
 }
 
 .masthead-links a {
-  color: var(--content-secondary);
+  color: var(--color-content-secondary);
   text-decoration: none;
-  border-bottom: 1px solid var(--border-medium);
+  border-bottom: 1px solid var(--color-border-medium);
   padding-bottom: 2px;
   transition: color 120ms ease, border-color 120ms ease;
 }
 
 .masthead-links a:hover {
-  color: var(--content-accent);
-  border-color: var(--content-accent);
+  color: var(--color-content-accent);
+  border-color: var(--color-content-accent);
 }
 
 .masthead-note {
   margin: var(--space-4) 0 0;
-  color: var(--content-secondary);
+  color: var(--color-content-secondary);
   font-size: 13px;
   max-width: 62ch;
 }
 
 .masthead-note strong {
-  color: var(--content-primary);
+  color: var(--color-content-primary);
   font-weight: 600;
 }
 
@@ -151,7 +151,7 @@ a { color: inherit; }
 
 section {
   padding: var(--space-7) 0;
-  border-bottom: 1px solid var(--border-medium);
+  border-bottom: 1px solid var(--color-border-medium);
 }
 
 .section-label {
@@ -160,15 +160,15 @@ section {
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--content-secondary);
+  color: var(--color-content-secondary);
   margin: 0 0 var(--space-2);
 }
 
-.section-label .num { color: var(--content-accent); margin-right: var(--space-2); }
+.section-label .num { color: var(--color-content-accent); margin-right: var(--space-2); }
 
 .section-intro {
   margin: 0 0 var(--space-6);
-  color: var(--content-secondary);
+  color: var(--color-content-secondary);
   font-size: 13px;
   max-width: 60ch;
 }
@@ -180,7 +180,7 @@ section {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--content-secondary);
+  color: var(--color-content-secondary);
   margin: var(--space-6) 0 var(--space-3);
 }
 
@@ -193,8 +193,8 @@ section {
 }
 
 .swatch {
-  background: var(--bg-elevated);
-  border: 1px solid var(--border-medium);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-medium);
   border-radius: var(--radius-lg);
   padding: var(--space-3);
   transition: border-color 140ms ease;
@@ -205,37 +205,37 @@ section {
 .swatch-chip {
   height: 56px;
   border-radius: var(--radius-md);
-  border: 1px solid var(--border-medium);
+  border: 1px solid var(--color-border-medium);
   margin-bottom: var(--space-3);
 }
 
 .swatch-chip.on-page {
   /* translucent tints previewed over the page background they sit on */
-  background-color: var(--bg-primary);
+  background-color: var(--color-bg-primary);
   background-image: var(--tint);
 }
 
 .swatch-name {
   font-family: var(--font-mono);
   font-size: 12px;
-  color: var(--content-primary);
+  color: var(--color-content-primary);
   word-break: break-all;
 }
 
 .swatch-value {
   font-family: var(--font-mono);
   font-size: 11px;
-  color: var(--content-secondary);
+  color: var(--color-content-secondary);
   margin-top: 2px;
   word-break: break-all;
 }
 
 .swatch-role {
   font-size: 12px;
-  color: var(--content-secondary);
+  color: var(--color-content-secondary);
   margin-top: var(--space-2);
   padding-top: var(--space-2);
-  border-top: 1px solid var(--border-medium);
+  border-top: 1px solid var(--color-border-medium);
 }
 
 /* ---------- b. candidate palettes ---------- */
@@ -247,10 +247,10 @@ section {
 }
 
 .theme-card {
-  border: 1px solid var(--border-medium);
+  border: 1px solid var(--color-border-medium);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  background: var(--bg-elevated);
+  background: var(--color-bg-elevated);
   transition: border-color 140ms ease;
 }
 
@@ -262,7 +262,7 @@ section {
   justify-content: space-between;
   gap: var(--space-2);
   padding: var(--space-3) var(--space-4);
-  border-bottom: 1px solid var(--border-medium);
+  border-bottom: 1px solid var(--color-border-medium);
 }
 
 .theme-name {
@@ -270,7 +270,7 @@ section {
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--content-primary);
+  color: var(--color-content-primary);
 }
 
 .theme-vote {
@@ -278,8 +278,8 @@ section {
   font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--content-secondary);
-  border: 1px solid var(--border-medium);
+  color: var(--color-content-secondary);
+  border: 1px solid var(--color-border-medium);
   border-radius: var(--radius-full);
   padding: 2px 8px;
   white-space: nowrap;
@@ -287,42 +287,42 @@ section {
 
 /* the preview surface re-themes purely by overriding tokens in scope */
 .theme-preview {
-  background: var(--bg-primary);
+  background: var(--color-bg-primary);
   padding: var(--space-5);
 }
 
 [data-theme="stempel"] {
   color-scheme: light;
-  --bg-primary: #F4EFE6;
-  --bg-elevated: #FDFBF7;
-  --bg-accent-tint: rgba(31, 77, 58, 0.10);
-  --content-primary: #1F2A24;
-  --content-secondary: #5C685F;
-  --content-accent: #1F4D3A;
-  --content-on-accent: #F4EFE6;
-  --border-medium: #E0D8C6;   /* derived */
-  --border-accent: #1F4D3A;
+  --color-bg-primary: #F4EFE6;
+  --color-bg-elevated: #FDFBF7;
+  --color-bg-accent-tint: rgba(31, 77, 58, 0.10);
+  --color-content-primary: #1F2A24;
+  --color-content-secondary: #5C685F;
+  --color-content-accent: #1F4D3A;
+  --color-content-on-accent: #F4EFE6;
+  --color-border-medium: #E0D8C6;   /* derived */
+  --color-border-accent: #1F4D3A;
   --gold-detail: #B08D3E;
 }
 
 [data-theme="rasi"] {
-  --bg-primary: #0E0C1E;
-  --bg-elevated: #171432;
-  --bg-accent-tint: rgba(167, 139, 250, 0.14);
-  --content-primary: #EEEBFF;
-  --content-secondary: #8E88B0;
-  --content-accent: #A78BFA;
-  --content-on-accent: #14102A;
-  --border-medium: #2A2450;   /* derived */
-  --border-accent: #A78BFA;
+  --color-bg-primary: #0E0C1E;
+  --color-bg-elevated: #171432;
+  --color-bg-accent-tint: rgba(167, 139, 250, 0.14);
+  --color-content-primary: #EEEBFF;
+  --color-content-secondary: #8E88B0;
+  --color-content-accent: #A78BFA;
+  --color-content-on-accent: #14102A;
+  --color-border-medium: #2A2450;   /* derived */
+  --color-border-accent: #A78BFA;
 }
 
 .mini-card {
-  background: var(--bg-elevated);
-  border: 1px solid var(--border-medium);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-medium);
   border-radius: var(--radius-lg);
   padding: var(--space-5);
-  color: var(--content-primary);
+  color: var(--color-content-primary);
 }
 
 .mini-card h3 {
@@ -334,7 +334,7 @@ section {
 .mini-card .mini-sub {
   margin: 4px 0 var(--space-4);
   font-size: 13px;
-  color: var(--content-secondary);
+  color: var(--color-content-secondary);
 }
 
 .mini-row {
@@ -349,13 +349,13 @@ section {
   font-weight: 700;
   border-radius: var(--radius-full);
   padding: 3px 9px;
-  background: var(--bg-accent-tint);
-  color: var(--content-accent);
+  background: var(--color-bg-accent-tint);
+  color: var(--color-content-accent);
 }
 
 .mini-btn {
-  background: var(--content-accent);
-  color: var(--content-on-accent);
+  background: var(--color-content-accent);
+  color: var(--color-content-on-accent);
   border: none;
   border-radius: var(--radius-md);
   padding: 8px 16px;
@@ -372,7 +372,7 @@ section {
   align-items: center;
   gap: var(--space-2);
   padding: var(--space-3) var(--space-4);
-  border-top: 1px solid var(--border-medium);
+  border-top: 1px solid var(--color-border-medium);
 }
 
 .theme-dots .dot {
@@ -386,7 +386,7 @@ section {
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.04em;
-  color: var(--content-secondary);
+  color: var(--color-content-secondary);
   margin-left: auto;
 }
 
@@ -398,7 +398,7 @@ section {
   gap: var(--space-5);
   align-items: baseline;
   padding: var(--space-4) 0;
-  border-bottom: 1px solid var(--border-medium);
+  border-bottom: 1px solid var(--color-border-medium);
 }
 
 .type-row:last-child { border-bottom: none; }
@@ -407,7 +407,7 @@ section {
   font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.05em;
-  color: var(--content-secondary);
+  color: var(--color-content-secondary);
   text-transform: uppercase;
 }
 
@@ -416,7 +416,7 @@ section {
   text-transform: none;
   letter-spacing: 0;
   margin-top: 2px;
-  color: var(--content-secondary);
+  color: var(--color-content-secondary);
   opacity: 0.7;
 }
 
@@ -427,7 +427,7 @@ section {
   line-height: 1.2;
 }
 
-.spec-display .dim { color: var(--content-secondary); font-weight: 700; }
+.spec-display .dim { color: var(--color-content-secondary); font-weight: 700; }
 
 .spec-logo {
   font-size: 28px;
@@ -435,18 +435,18 @@ section {
   letter-spacing: -0.02em;
 }
 
-.spec-logo::first-letter { color: var(--content-accent); }
+.spec-logo::first-letter { color: var(--color-content-accent); }
 
 .spec-h2 { font-size: 16px; font-weight: 600; }
 .spec-body-md { font-size: 14px; line-height: 1.5; max-width: 52ch; }
-.spec-body-sm { font-size: 13px; color: var(--content-secondary); max-width: 52ch; }
+.spec-body-sm { font-size: 13px; color: var(--color-content-secondary); max-width: 52ch; }
 
 .spec-label {
   font-family: var(--font-mono);
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--content-secondary);
+  color: var(--color-content-secondary);
 }
 
 .spec-pill-label { font-size: 11px; font-weight: 700; }
@@ -470,20 +470,20 @@ section {
 .space-row .k {
   font-family: var(--font-mono);
   font-size: 11px;
-  color: var(--content-primary);
+  color: var(--color-content-primary);
 }
 
 .space-row .v {
   font-family: var(--font-mono);
   font-size: 11px;
-  color: var(--content-secondary);
+  color: var(--color-content-secondary);
   text-align: right;
 }
 
 .space-bar {
   height: 18px;
-  background: var(--bg-accent-tint);
-  border: 1px solid var(--content-accent);
+  background: var(--color-bg-accent-tint);
+  border: 1px solid var(--color-content-accent);
   border-radius: 2px;
 }
 
@@ -499,24 +499,24 @@ section {
 .radius-box {
   width: 72px;
   height: 72px;
-  background: var(--bg-elevated);
-  border: 1px solid var(--border-medium);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-medium);
   transition: border-color 140ms ease;
 }
 
-.radius-demo:hover .radius-box { border-color: var(--content-accent); }
+.radius-demo:hover .radius-box { border-color: var(--color-content-accent); }
 
 .radius-box.full { width: 104px; height: 44px; }
 
 .radius-caption {
   font-family: var(--font-mono);
   font-size: 11px;
-  color: var(--content-secondary);
+  color: var(--color-content-secondary);
   margin-top: var(--space-2);
 }
 
 .radius-caption b {
-  color: var(--content-primary);
+  color: var(--color-content-primary);
   font-weight: 400;
   display: block;
 }
@@ -525,23 +525,23 @@ section {
 
 .specimen-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
   gap: var(--space-4);
 }
 
 .specimen-grid .wide { grid-column: 1 / -1; }
 
 .specimen {
-  border: 1px solid var(--border-medium);
+  border: 1px solid var(--color-border-medium);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  background: var(--bg-elevated);
+  background: var(--color-bg-elevated);
   display: flex;
   flex-direction: column;
   transition: border-color 140ms ease;
 }
 
-.specimen:hover { border-color: #3a4454; }
+.specimen:hover { border-color: #3a362c; }
 
 .specimen-head {
   display: flex;
@@ -549,7 +549,7 @@ section {
   justify-content: space-between;
   gap: var(--space-3);
   padding: var(--space-2) var(--space-4);
-  border-bottom: 1px solid var(--border-medium);
+  border-bottom: 1px solid var(--color-border-medium);
 }
 
 .specimen-title {
@@ -557,7 +557,7 @@ section {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--content-primary);
+  color: var(--color-content-primary);
 }
 
 .taxonomy {
@@ -565,7 +565,7 @@ section {
   font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--content-secondary);
+  color: var(--color-content-secondary);
   text-align: right;
   white-space: nowrap;
   overflow: hidden;
@@ -573,27 +573,27 @@ section {
 }
 
 .specimen-body {
-  background: var(--bg-primary);
+  background: var(--color-bg-primary);
   padding: var(--space-5);
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .specimen-note {
   font-size: 12px;
-  color: var(--content-secondary);
+  color: var(--color-content-secondary);
   padding: var(--space-2) var(--space-4);
-  border-top: 1px solid var(--border-medium);
+  border-top: 1px solid var(--color-border-medium);
 }
 
 /* ---------- e. atoms -- app classes reproduced exactly (src/App.css) ---------- */
 
 .card {
-  background: var(--bg-elevated);
-  border: 1px solid var(--border-medium);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-medium);
   border-radius: var(--radius-lg);   /* 14px */
   padding: 20px;
 }
@@ -616,7 +616,7 @@ section {
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--content-secondary);
+  color: var(--color-content-secondary);
 }
 
 .balance {
@@ -628,8 +628,8 @@ section {
 
 code {
   font-family: var(--font-mono);
-  background: var(--bg-input);
-  border: 1px solid var(--border-medium);
+  background: var(--color-bg-input);
+  border: 1px solid var(--color-border-medium);
   border-radius: var(--radius-sm);   /* 6px */
   padding: 2px 7px;
   font-size: 13px;
@@ -642,12 +642,12 @@ code {
   padding: 3px 9px;
 }
 
-.pill.ok   { background: var(--bg-success-tint); color: var(--content-success); }
-.pill.warn { background: var(--bg-warning-tint); color: var(--content-warning); }
+.pill.ok   { background: var(--color-bg-success-tint); color: var(--color-content-success); }
+.pill.warn { background: var(--color-bg-warning-tint); color: var(--color-content-warning); }
 
 button {
-  background: var(--content-accent);
-  color: var(--content-on-accent);
+  background: var(--color-content-accent);
+  color: var(--color-content-on-accent);
   border: none;
   border-radius: var(--radius-md);   /* 9px */
   padding: 10px 18px;
@@ -663,8 +663,8 @@ button:disabled:hover { filter: none; }
 
 button.ghost {
   background: transparent;
-  color: var(--content-primary);
-  border: 1px solid var(--border-medium);
+  color: var(--color-content-primary);
+  border: 1px solid var(--color-border-medium);
   font-weight: 600;
 }
 
@@ -673,25 +673,25 @@ label {
   flex-direction: column;
   gap: 5px;
   font-size: 13px;
-  color: var(--content-secondary);
+  color: var(--color-content-secondary);
 }
 
 input {
-  background: var(--bg-input);
-  border: 1px solid var(--border-medium);
+  background: var(--color-bg-input);
+  border: 1px solid var(--color-border-medium);
   border-radius: var(--radius-md);
   padding: 10px 12px;
-  color: var(--content-primary);
+  color: var(--color-content-primary);
   font-family: var(--font-body);
   font-size: 14px;
   width: 100%;
 }
 
-input:focus { outline: none; border-color: var(--border-accent); }
+input:focus { outline: none; border-color: var(--color-border-accent); }
 
-.hint    { color: var(--content-secondary); font-size: 13px; margin: 8px 0 12px; }
-.error   { color: var(--content-danger);   font-size: 13px; margin: 10px 0 0; }
-.success { color: var(--content-success);  font-size: 13px; margin: 12px 0 0; }
+.hint    { color: var(--color-content-secondary); font-size: 13px; margin: 8px 0 12px; }
+.error   { color: var(--color-content-danger);   font-size: 13px; margin: 10px 0 0; }
+.success { color: var(--color-content-success);  font-size: 13px; margin: 12px 0 0; }
 
 /* ---------- f. molecules ---------- */
 
@@ -706,7 +706,7 @@ input:focus { outline: none; border-color: var(--border-accent); }
 .sub-price .per {
   font-size: 13px;
   font-weight: 400;
-  color: var(--content-secondary);
+  color: var(--color-content-secondary);
 }
 
 .avatar-group { display: flex; align-items: center; }
@@ -715,41 +715,49 @@ input:focus { outline: none; border-color: var(--border-accent); }
   width: 28px;
   height: 28px;
   border-radius: var(--radius-full);
-  background: var(--bg-input);
-  border: 2px solid var(--bg-elevated);
+  background: var(--color-bg-input);
+  border: 2px solid var(--color-bg-elevated);
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-mono);
   font-size: 10px;
   font-weight: 700;
-  color: var(--content-secondary);
+  color: var(--color-content-secondary);
 }
 
 .avatar + .avatar { margin-left: -8px; }
-.avatar.a1 { background: var(--bg-accent-tint);  color: var(--content-accent); }
-.avatar.a2 { background: var(--bg-success-tint); color: var(--content-success); }
-.avatar.a3 { background: var(--bg-warning-tint); color: var(--content-warning); }
+.avatar.a1 { background: var(--color-bg-accent-tint);  color: var(--color-content-accent); }
+.avatar.a2 { background: var(--color-bg-success-tint); color: var(--color-content-success); }
+.avatar.a3 { background: var(--color-bg-warning-tint); color: var(--color-content-warning); }
 
-.avatar-note { font-size: 12px; color: var(--content-secondary); margin-left: 10px; }
+.avatar-note { font-size: 12px; color: var(--color-content-secondary); margin-left: 10px; }
 
 /* split allocation rows */
 .alloc-row {
   display: grid;
-  grid-template-columns: 1fr 44px 92px;
+  grid-template-columns: minmax(0, 1fr) auto auto;
   align-items: center;
-  gap: var(--space-3);
+  column-gap: var(--space-3);
+  row-gap: 6px;
   padding: var(--space-2) 0;
 }
 
-.alloc-name { font-size: 14px; }
+.alloc-name {
+  font-size: 13px;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 .alloc-pct {
   font-family: var(--font-mono);
   font-size: 12px;
-  color: var(--content-secondary);
+  color: var(--color-content-secondary);
   text-align: right;
   font-variant-numeric: tabular-nums;
+  min-width: 42px;
 }
 
 .alloc-amt {
@@ -757,19 +765,20 @@ input:focus { outline: none; border-color: var(--border-accent); }
   font-weight: 600;
   text-align: right;
   font-variant-numeric: tabular-nums;
+  min-width: 80px;
 }
 
 .alloc-track {
   grid-column: 1 / -1;
   height: 4px;
-  background: var(--bg-input);
+  background: var(--color-bg-input);
   border-radius: var(--radius-full);
   overflow: hidden;
 }
 
 .alloc-fill {
   height: 100%;
-  background: var(--content-accent);
+  background: var(--color-content-accent);
   border-radius: var(--radius-full);
 }
 
@@ -781,8 +790,8 @@ input:focus { outline: none; border-color: var(--border-accent); }
 
 .stat-chip {
   flex: 1 1 140px;
-  background: var(--bg-elevated);
-  border: 1px solid var(--border-medium);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-medium);
   border-radius: var(--radius-lg);
   padding: var(--space-3) var(--space-4);
   transition: border-color 140ms ease;
@@ -797,7 +806,7 @@ input:focus { outline: none; border-color: var(--border-accent); }
   margin-top: 2px;
 }
 
-.stat-delta { font-size: 12px; color: var(--content-success); margin-top: 2px; }
+.stat-delta { font-size: 12px; color: var(--color-content-success); margin-top: 2px; }
 
 /* entitlement badges */
 .benefit-line {
@@ -806,7 +815,7 @@ input:focus { outline: none; border-color: var(--border-accent); }
   justify-content: space-between;
   gap: var(--space-3);
   padding: var(--space-3) 0;
-  border-bottom: 1px solid var(--border-medium);
+  border-bottom: 1px solid var(--color-border-medium);
 }
 
 .benefit-line:last-child { border-bottom: none; }
@@ -823,21 +832,21 @@ input:focus { outline: none; border-color: var(--border-accent); }
 }
 
 .badge.locked {
-  color: var(--content-secondary);
-  border: 1px solid var(--border-medium);
+  color: var(--color-content-secondary);
+  border: 1px solid var(--color-border-medium);
   background: transparent;
 }
 
 .badge.unlocked {
-  color: var(--content-success);
-  background: var(--bg-success-tint);
+  color: var(--color-content-success);
+  background: var(--color-bg-success-tint);
   border: 1px solid transparent;
 }
 
 /* stepper */
-.stepper { display: flex; align-items: center; gap: var(--space-2); }
+.stepper { display: flex; align-items: center; gap: var(--space-1); min-width: 0; }
 
-.step { display: flex; align-items: center; gap: var(--space-2); }
+.step { display: flex; align-items: center; gap: 6px; flex-shrink: 1; min-width: 0; }
 
 .step-dot {
   width: 24px;
@@ -853,49 +862,53 @@ input:focus { outline: none; border-color: var(--border-accent); }
 }
 
 .step.done .step-dot {
-  background: var(--content-accent);
-  color: var(--content-on-accent);
+  background: var(--color-content-accent);
+  color: var(--color-content-on-accent);
 }
 
 .step.active .step-dot {
-  background: var(--bg-accent-tint);
-  color: var(--content-accent);
-  border: 1px solid var(--content-accent);
+  background: var(--color-bg-accent-tint);
+  color: var(--color-content-accent);
+  border: 1px solid var(--color-content-accent);
 }
 
 .step.todo .step-dot {
   background: transparent;
-  color: var(--content-secondary);
-  border: 1px solid var(--border-medium);
+  color: var(--color-content-secondary);
+  border: 1px solid var(--color-border-medium);
 }
 
 .step-name {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
 
-.step.done .step-name   { color: var(--content-primary); }
-.step.active .step-name { color: var(--content-accent); }
-.step.todo .step-name   { color: var(--content-secondary); }
+.step.done .step-name   { color: var(--color-content-primary); }
+.step.active .step-name { color: var(--color-content-accent); }
+.step.todo .step-name   { color: var(--color-content-secondary); }
 
 .step-line {
-  flex: 1;
+  flex: 1 1 16px;
   height: 1px;
-  background: var(--border-medium);
-  min-width: 16px;
+  background: var(--color-border-medium);
+  min-width: 6px;
 }
 
-.step-line.lit { background: var(--content-accent); opacity: 0.5; }
+.step-line.lit { background: var(--color-content-accent); opacity: 0.5; }
 
 /* toast */
 .toast {
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  background: var(--bg-elevated);
-  border: 1px solid var(--border-medium);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-medium);
   border-radius: var(--radius-md);
   padding: var(--space-3) var(--space-4);
   font-size: 13px;
@@ -909,18 +922,18 @@ input:focus { outline: none; border-color: var(--border-accent); }
 }
 
 .toast.pending .toast-dot {
-  background: var(--content-accent);
+  background: var(--color-content-accent);
   animation: pulse 1.6s ease-in-out infinite;
 }
 
 .toast.tx-success { border-color: rgba(62, 207, 142, 0.35); }
-.toast.tx-success .toast-dot { background: var(--content-success); }
+.toast.tx-success .toast-dot { background: var(--color-content-success); }
 
 .toast.tx-fail { border-color: rgba(255, 107, 107, 0.35); }
-.toast.tx-fail .toast-dot { background: var(--content-danger); }
+.toast.tx-fail .toast-dot { background: var(--color-content-danger); }
 
 .toast .t-msg { flex: 1; min-width: 0; }
-.toast .t-sub { color: var(--content-secondary); font-size: 12px; }
+.toast .t-sub { color: var(--color-content-secondary); font-size: 12px; }
 
 @keyframes pulse {
   0%, 100% { opacity: 1; }
@@ -932,9 +945,9 @@ input:focus { outline: none; border-color: var(--border-accent); }
   border-radius: var(--radius-sm);
   background: linear-gradient(
     90deg,
-    var(--bg-input) 25%,
+    var(--color-bg-input) 25%,
     #1a2029 50%,
-    var(--bg-input) 75%
+    var(--color-bg-input) 75%
   );
   background-size: 200% 100%;
   animation: shimmer 1.8s linear infinite;
@@ -960,12 +973,12 @@ input:focus { outline: none; border-color: var(--border-accent); }
 .colophon {
   padding-top: var(--space-6);
   font-size: 12px;
-  color: var(--content-secondary);
+  color: var(--color-content-secondary);
   text-align: center;
 }
 
 .colophon a { color: inherit; }
-.colophon a:hover { color: var(--content-accent); }
+.colophon a:hover { color: var(--color-content-accent); }
 
 /* ---------- responsive ---------- */
 
@@ -984,14 +997,14 @@ input:focus { outline: none; border-color: var(--border-accent); }
   <!-- ============ MASTHEAD ============ -->
   <header class="masthead">
     <div class="masthead-top">
-      <h1>Communify Design System <span class="badge-v0">v0</span></h1>
+      <h1>Komunify Design System <span class="badge-v0">v0</span></h1>
       <nav class="masthead-links">
         <a href="/">App</a>
         <a href="https://github.com/abullaisi/stellar-communify/blob/main/DESIGN.md">DESIGN.md</a>
       </nav>
     </div>
     <p class="masthead-note">
-      Brand vote pending: <strong>SPLIT / STEMPEL / RASI</strong>. Current theme = v0 dark+gold.
+      Theme: <strong>SPLIT v4</strong>, adopted 2026-07-05 from the combined brand board (i2i, sampled hexes). STEMPEL / RASI archived as alternates.
       Token structure follows the Agentic semantic naming: BACKGROUND / CONTENT / BORDER / INPUT / BUTTON.
       Every specimen on this page is rendered live from the tokens, not screenshots.
     </p>
@@ -1005,38 +1018,38 @@ input:focus { outline: none; border-color: var(--border-accent); }
     <p class="token-group-label">Background</p>
     <div class="swatch-grid">
       <div class="swatch">
-        <div class="swatch-chip" style="background:#0c0f14"></div>
-        <div class="swatch-name">--bg-primary</div>
-        <div class="swatch-value">#0c0f14</div>
+        <div class="swatch-chip" style="background:#0b0b0a"></div>
+        <div class="swatch-name">--color-bg-primary</div>
+        <div class="swatch-value">#0b0b0a</div>
         <div class="swatch-role">Page background</div>
       </div>
       <div class="swatch">
-        <div class="swatch-chip" style="background:#151a22"></div>
-        <div class="swatch-name">--bg-elevated</div>
-        <div class="swatch-value">#151a22</div>
+        <div class="swatch-chip" style="background:#131311"></div>
+        <div class="swatch-name">--color-bg-elevated</div>
+        <div class="swatch-value">#131311</div>
         <div class="swatch-role">Cards, elevated surfaces</div>
       </div>
       <div class="swatch">
-        <div class="swatch-chip" style="background:#0e1218"></div>
-        <div class="swatch-name">--bg-input</div>
-        <div class="swatch-value">#0e1218</div>
+        <div class="swatch-chip" style="background:#0d0d0b"></div>
+        <div class="swatch-name">--color-bg-input</div>
+        <div class="swatch-value">#0d0d0b</div>
         <div class="swatch-role">Inputs, code chips, tracks</div>
       </div>
       <div class="swatch">
-        <div class="swatch-chip on-page" style="--tint:linear-gradient(rgba(255,210,63,0.12),rgba(255,210,63,0.12))"></div>
-        <div class="swatch-name">--bg-accent-tint</div>
-        <div class="swatch-value">rgba(255,210,63,0.12)</div>
+        <div class="swatch-chip on-page" style="--tint:linear-gradient(rgba(229,168,74,0.12),rgba(229,168,74,0.12))"></div>
+        <div class="swatch-name">--color-bg-accent-tint</div>
+        <div class="swatch-value">rgba(229,168,74,0.12)</div>
         <div class="swatch-role">Accent fills: active step, v0 badge</div>
       </div>
       <div class="swatch">
         <div class="swatch-chip on-page" style="--tint:linear-gradient(rgba(62,207,142,0.14),rgba(62,207,142,0.14))"></div>
-        <div class="swatch-name">--bg-success-tint</div>
+        <div class="swatch-name">--color-bg-success-tint</div>
         <div class="swatch-value">rgba(62,207,142,0.14)</div>
         <div class="swatch-role">OK pill, unlocked badge fill</div>
       </div>
       <div class="swatch">
         <div class="swatch-chip on-page" style="--tint:linear-gradient(rgba(255,138,92,0.14),rgba(255,138,92,0.14))"></div>
-        <div class="swatch-name">--bg-warning-tint</div>
+        <div class="swatch-name">--color-bg-warning-tint</div>
         <div class="swatch-value">rgba(255,138,92,0.14)</div>
         <div class="swatch-role">Warn pill fill</div>
       </div>
@@ -1045,44 +1058,44 @@ input:focus { outline: none; border-color: var(--border-accent); }
     <p class="token-group-label">Content</p>
     <div class="swatch-grid">
       <div class="swatch">
-        <div class="swatch-chip" style="background:#e8ecf1"></div>
-        <div class="swatch-name">--content-primary</div>
-        <div class="swatch-value">#e8ecf1</div>
+        <div class="swatch-chip" style="background:#ecd9c1"></div>
+        <div class="swatch-name">--color-content-primary</div>
+        <div class="swatch-value">#ecd9c1</div>
         <div class="swatch-role">Headings, body, values</div>
       </div>
       <div class="swatch">
-        <div class="swatch-chip" style="background:#8b95a3"></div>
-        <div class="swatch-name">--content-secondary</div>
-        <div class="swatch-value">#8b95a3</div>
+        <div class="swatch-chip" style="background:#928e85"></div>
+        <div class="swatch-name">--color-content-secondary</div>
+        <div class="swatch-value">#928e85</div>
         <div class="swatch-role">Labels, hints, taglines</div>
       </div>
       <div class="swatch">
-        <div class="swatch-chip" style="background:#ffd23f"></div>
-        <div class="swatch-name">--content-accent</div>
-        <div class="swatch-value">#ffd23f</div>
+        <div class="swatch-chip" style="background:#e5a84a"></div>
+        <div class="swatch-name">--color-content-accent</div>
+        <div class="swatch-value">#e5a84a</div>
         <div class="swatch-role">Brand gold: CTA fill, logo mark</div>
       </div>
       <div class="swatch">
-        <div class="swatch-chip" style="background:#1a1400"></div>
-        <div class="swatch-name">--content-on-accent</div>
-        <div class="swatch-value">#1a1400</div>
+        <div class="swatch-chip" style="background:#201607"></div>
+        <div class="swatch-name">--color-content-on-accent</div>
+        <div class="swatch-value">#201607</div>
         <div class="swatch-role">Text on accent surfaces</div>
       </div>
       <div class="swatch">
         <div class="swatch-chip" style="background:#3ecf8e"></div>
-        <div class="swatch-name">--content-success</div>
+        <div class="swatch-name">--color-content-success</div>
         <div class="swatch-value">#3ecf8e</div>
         <div class="swatch-role">Success text, tx confirmed</div>
       </div>
       <div class="swatch">
         <div class="swatch-chip" style="background:#ff8a5c"></div>
-        <div class="swatch-name">--content-warning</div>
+        <div class="swatch-name">--color-content-warning</div>
         <div class="swatch-value">#ff8a5c</div>
         <div class="swatch-role">Warning text, low balance</div>
       </div>
       <div class="swatch">
         <div class="swatch-chip" style="background:#ff6b6b"></div>
-        <div class="swatch-name">--content-danger</div>
+        <div class="swatch-name">--color-content-danger</div>
         <div class="swatch-value">#ff6b6b</div>
         <div class="swatch-role">Errors, failed tx</div>
       </div>
@@ -1091,15 +1104,15 @@ input:focus { outline: none; border-color: var(--border-accent); }
     <p class="token-group-label">Border</p>
     <div class="swatch-grid">
       <div class="swatch">
-        <div class="swatch-chip" style="background:#262d38"></div>
-        <div class="swatch-name">--border-medium</div>
-        <div class="swatch-value">#262d38</div>
+        <div class="swatch-chip" style="background:#262521"></div>
+        <div class="swatch-name">--color-border-medium</div>
+        <div class="swatch-value">#262521</div>
         <div class="swatch-role">Default 1px hairline everywhere</div>
       </div>
       <div class="swatch">
-        <div class="swatch-chip" style="background:#ffd23f"></div>
-        <div class="swatch-name">--border-accent</div>
-        <div class="swatch-value">#ffd23f</div>
+        <div class="swatch-chip" style="background:#e5a84a"></div>
+        <div class="swatch-name">--color-border-accent</div>
+        <div class="swatch-value">#e5a84a</div>
         <div class="swatch-role">Focus ring on inputs</div>
       </div>
     </div>
@@ -1115,7 +1128,7 @@ input:focus { outline: none; border-color: var(--border-accent); }
       <div class="theme-card" data-theme="split">
         <div class="theme-card-head">
           <span class="theme-name">Split · dark+gold</span>
-          <span class="theme-vote">v0 default</span>
+          <span class="theme-vote">adopted v4</span>
         </div>
         <div class="theme-preview">
           <div class="mini-card">
@@ -1128,16 +1141,16 @@ input:focus { outline: none; border-color: var(--border-accent); }
           </div>
         </div>
         <div class="theme-dots">
-          <span class="dot" style="background:#0c0f14"></span>
-          <span class="dot" style="background:#151a22"></span>
-          <span class="dot" style="background:#ffd23f"></span>
-          <span class="dot" style="background:#e8ecf1"></span>
-          <span class="dot-note">pending team vote</span>
+          <span class="dot" style="background:#0b0b0a"></span>
+          <span class="dot" style="background:#131311"></span>
+          <span class="dot" style="background:#e5a84a"></span>
+          <span class="dot" style="background:#ecd9c1"></span>
+          <span class="dot-note">adopted 2026-07-05</span>
         </div>
       </div>
 
       <div class="theme-card" data-theme="stempel">
-        <div class="theme-card-head" style="background:var(--bg-elevated)">
+        <div class="theme-card-head" style="background:var(--color-bg-elevated)">
           <span class="theme-name">Stempel · ivory+forest</span>
           <span class="theme-vote">candidate</span>
         </div>
@@ -1151,17 +1164,17 @@ input:focus { outline: none; border-color: var(--border-accent); }
             </div>
           </div>
         </div>
-        <div class="theme-dots" style="background:var(--bg-elevated)">
+        <div class="theme-dots" style="background:var(--color-bg-elevated)">
           <span class="dot" style="background:#F4EFE6"></span>
           <span class="dot" style="background:#1F4D3A"></span>
           <span class="dot" style="background:#B08D3E"></span>
           <span class="dot" style="background:#1F2A24"></span>
-          <span class="dot-note">pending team vote</span>
+          <span class="dot-note">archived alternate</span>
         </div>
       </div>
 
       <div class="theme-card" data-theme="rasi">
-        <div class="theme-card-head" style="background:var(--bg-elevated)">
+        <div class="theme-card-head" style="background:var(--color-bg-elevated)">
           <span class="theme-name">Rasi · indigo+lilac</span>
           <span class="theme-vote">candidate</span>
         </div>
@@ -1175,12 +1188,12 @@ input:focus { outline: none; border-color: var(--border-accent); }
             </div>
           </div>
         </div>
-        <div class="theme-dots" style="background:var(--bg-elevated)">
+        <div class="theme-dots" style="background:var(--color-bg-elevated)">
           <span class="dot" style="background:#0E0C1E"></span>
           <span class="dot" style="background:#171432"></span>
           <span class="dot" style="background:#A78BFA"></span>
           <span class="dot" style="background:#EEEBFF"></span>
-          <span class="dot-note">pending team vote</span>
+          <span class="dot-note">archived alternate</span>
         </div>
       </div>
 
@@ -1196,13 +1209,13 @@ input:focus { outline: none; border-color: var(--border-accent); }
       <div class="type-meta">Display / Balance<span class="spec">30px / 700 · tabular-nums</span></div>
       <div>
         <div class="spec-display">10,000 <span class="dim">XLM</span></div>
-        <div class="spec-display" style="color:var(--content-secondary)">11,111 <span class="dim">XLM</span></div>
+        <div class="spec-display" style="color:var(--color-content-secondary)">11,111 <span class="dim">XLM</span></div>
       </div>
     </div>
 
     <div class="type-row">
       <div class="type-meta">Logo<span class="spec">28px / 800 · -0.02em · first letter accent</span></div>
-      <div class="spec-logo">Communify</div>
+      <div class="spec-logo">Komunify</div>
     </div>
 
     <div class="type-row">
@@ -1296,7 +1309,7 @@ input:focus { outline: none; border-color: var(--border-accent); }
             <button type="button" disabled>Processing</button>
           </div>
         </div>
-        <div class="specimen-note">Primary: --content-accent fill, --content-on-accent label. Ghost: transparent + 1px --border-medium. Hover: brightness 1.06.</div>
+        <div class="specimen-note">Primary: --color-content-accent fill, --color-content-on-accent label. Ghost: transparent + 1px --color-border-medium. Hover: brightness 1.06.</div>
       </div>
 
       <div class="specimen">
@@ -1310,7 +1323,7 @@ input:focus { outline: none; border-color: var(--border-accent); }
             <input type="text" placeholder="G..." spellcheck="false">
           </label>
         </div>
-        <div class="specimen-note">Focus ring: border-color switches to --border-accent, no outline. Click the field to see it.</div>
+        <div class="specimen-note">Focus ring: border-color switches to --color-border-accent, no outline. Click the field to see it.</div>
       </div>
 
       <div class="specimen">
@@ -1335,7 +1348,7 @@ input:focus { outline: none; border-color: var(--border-accent); }
         <div class="specimen-body">
           <div>Account <code>GBRX…K3LM</code> funded on <code>testnet</code></div>
         </div>
-        <div class="specimen-note">13px mono on --bg-input, radius-sm, 1px --border-medium.</div>
+        <div class="specimen-note">13px mono on --color-bg-input, radius-sm, 1px --color-border-medium.</div>
       </div>
 
       <div class="specimen wide">
@@ -1544,7 +1557,7 @@ input:focus { outline: none; border-color: var(--border-accent); }
             <div class="skeleton sk-line w60"></div>
           </div>
         </div>
-        <div class="specimen-note">CSS-only shimmer between --bg-input stops. Respects prefers-reduced-motion.</div>
+        <div class="specimen-note">CSS-only shimmer between --color-bg-input stops. Respects prefers-reduced-motion.</div>
       </div>
 
     </div>
@@ -1552,7 +1565,7 @@ input:focus { outline: none; border-color: var(--border-accent); }
 
   <!-- ============ FOOTER ============ -->
   <footer class="colophon">
-    Communify Design System v0. Token structure adapted from
+    Komunify Design System v0. Token structure adapted from
     <a href="https://agenticui.net">Agentic Design System v1.1 (agenticui.net)</a>.
     Built at APAC Stellar Hackathon 2026.
   </footer>
