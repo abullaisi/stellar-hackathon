@@ -139,6 +139,9 @@ Data flow: the browser connects a wallet through **Stellar Wallets Kit**, builds
 | Balance displayed | ![Balance displayed](screenshots/balance.png) |
 | Successful testnet transaction | ![Transaction success](screenshots/tx-success.png) |
 | Transaction result shown to user | ![Transaction result](screenshots/tx-result.png) |
+| Mobile responsive UI (375px) | ![Mobile UI](screenshots/mobile-ui.png) |
+| CI/CD pipeline running (tests, build, Pages deploy all green) | ![CI pipeline](screenshots/ci-pipeline.png) |
+| Contract test output, 4 passing (CI log via GitHub API, job 85231970040) | ![Tests passing](screenshots/tests-passing.png) |
 
 ## Team
 
