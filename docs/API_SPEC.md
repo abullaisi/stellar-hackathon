@@ -149,20 +149,26 @@ Public. Server-side aggregation so the dashboard makes one request instead of a 
 
 ```jsonc
 {
-  "totalSubs": 42,
-  "totalVolume": "420000000",      // token base units, stringified i128
-  "totalClaimed": "180000000",
-  "contentCount": 7,
-  "managerCount": 3,
-  "currentEpoch": 12,
+  "totalSubs": "42",               // u64 -> string
+  "totalVolume": "420000000",      // i128 -> string, token base units
+  "totalClaimed": "180000000",     // i128 -> string
+  "contentCount": "7",             // u64 -> string
+  "managerCount": 3,               // u32 -> number (< 2^53, safe)
+  "currentEpoch": 12,              // u32 -> number
   "epochEndsAt": "2026-07-10T12:05:00Z",
-  "epochReads": 31,
+  "epochReads": 31,                // u32 -> number (per-epoch read count, never near 2^32)
   "recentEvents": [
     { "type": "subscribed", "wallet": "GXXX...", "amount": "10000000", "ledger": 1234, "txHash": "abc..." },
     { "type": "claimed",    "wallet": "GYYY...", "amount": "30000000", "ledger": 1233, "txHash": "def..." }
   ]
 }
 ```
+
+**Boundary encoding rule (resolves the earlier contradiction):** `i128` and `u64` cross the wire as
+**strings**; `u32` may be a JSON number (max ~4.29e9 < 2^53, no precision loss). So `totalSubs` and
+`contentCount` (both `u64`) and every `i128` amount are strings; `managerCount`, `currentEpoch`,
+`epochReads`, and `ledger` (all `u32`) are numbers. The Zod schema in `packages/shared` is the
+source of truth — match it.
 
 Source: `get_stats()` + `current_epoch()` / `epoch_ends_at()` via simulation, plus RPC `getEvents`
 filtered on the `"kmf"` topic prefix over the last ~N ledgers (`epochReads` is derivable from the

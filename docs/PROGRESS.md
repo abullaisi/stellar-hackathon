@@ -257,17 +257,12 @@ A lane needing a change in another lane's paths. Requesting lane writes it; owni
 
 Spec errors, decision reversals, anything an agent must not decide alone.
 
-- **`API_SPEC.md` §3 `GET /stats` contradicts its own i128/u64-as-string rule.** The worked
-  JSON example shows `"totalSubs": 42` and `"contentCount": 7` as bare numbers, but
-  `Stats.total_subs` and `Stats.content_count` are `u64` on-chain, and the very next paragraph
-  says "All `u64` values cross the wire as strings... Never as JSON numbers... This applies to
-  every endpoint above." I wrote `packages/shared/src/schemas/stats.schema.ts` following the
-  stated rule (both fields as `z.string()`), documented the conflict in a comment on the schema,
-  and did not touch `API_SPEC.md` (frozen). **Lane B needs a human/spec-owner call**: either the
-  example is wrong (fix the doc) or the rule has an unstated u64-magnitude exception (unlikely —
-  `total_subs` can plausibly exceed 2^53 in production even if not in the demo). Whoever
-  implements `GET /stats` should follow the schema in `packages/shared`, not the example JSON,
-  unless this entry is resolved first.
+- ~~**`API_SPEC.md` §3 `GET /stats` contradicts its own i128/u64-as-string rule.**~~ **RESOLVED
+  2026-07-10 by spec owner.** Rule confirmed: `i128`/`u64` → strings, `u32` → JSON numbers.
+  `API_SPEC.md` §3 example and encoding rule updated accordingly (`totalSubs`, `contentCount`
+  strings; `managerCount`, `currentEpoch`, `epochReads`, `ledger` numbers). The Phase 0
+  `stats.schema.ts` already matched; no schema change needed. Lane B: follow the schema, this is
+  settled.
 - **Prisma migration generated and applied against a real (throwaway, Docker) Postgres — not
   the project's actual dev database**, since no persistent Postgres instance was configured in
   this environment. The migration SQL is committed and known-good (verified `\dt` output in
