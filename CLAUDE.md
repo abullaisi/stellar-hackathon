@@ -2,6 +2,17 @@
 
 This file provides guidance to Claude Code when working in this monorepo.
 
+> ## START HERE
+>
+> The MVP is being built by multiple agents against frozen specs. **Read `docs/PROGRESS.md` first**
+> — it says what is done and what to pick up next. Then `docs/PLAN.md` for the architecture.
+>
+> `docs/DECISIONS.md` records settled choices; do not relitigate them in code.
+> `docs/CONTRACT_SPEC.md` and `docs/API_SPEC.md` are frozen interfaces.
+>
+> **Much of the section below describes the `notes` scaffold and better-auth, both of which the MVP
+> deletes in Phase 0.** Treat it as historical until Phase 0 rewrites it.
+
 ## Project Overview
 
 **komunify** is a Web3 dApp on Stellar (Soroban) — a unified community subscription
