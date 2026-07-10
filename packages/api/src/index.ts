@@ -5,16 +5,12 @@ import { corsMiddleware } from './middleware/cors.middleware.js';
 import { loggerMiddleware } from './middleware/logger.middleware.js';
 import { errorHandler } from './middleware/error.middleware.js';
 import { health } from './routes/health.route.js';
-import { auth } from './lib/auth.js';
 
 const app = new Hono();
 
 // Global middleware
 app.use('*', corsMiddleware);
 app.use('*', loggerMiddleware);
-
-// Better Auth — handles all /api/auth/* routes (sign-in, sign-up, sign-out, session, etc.)
-app.on(['POST', 'GET'], '/api/auth/**', (c) => auth.handler(c.req.raw));
 
 // Routes
 app.route('/health', health);
