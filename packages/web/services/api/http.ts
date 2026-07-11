@@ -58,6 +58,12 @@ async function request<T>(endpoint: string, options?: RequestInit): Promise<T> {
     );
   }
 
+  // The komunify API wraps every success body in a `{ success: true, data }` envelope
+  // (lib/response.ts `success`/`created`). Services are typed against the flat payload
+  // (`{ nonce }`, `{ url, ... }`), so unwrap `data` here. 204/empty bodies pass through.
+  if (body && typeof body === 'object' && 'success' in body && 'data' in body) {
+    return (body as { data: T }).data;
+  }
   return body as T;
 }
 
@@ -68,6 +74,12 @@ export const ApiHttp = {
   post<T>(endpoint: string, body?: unknown): Promise<T> {
     return request<T>(endpoint, {
       method: 'POST',
+      body: body !== undefined ? JSON.stringify(body) : undefined,
+    });
+  },
+  put<T>(endpoint: string, body?: unknown): Promise<T> {
+    return request<T>(endpoint, {
+      method: 'PUT',
       body: body !== undefined ? JSON.stringify(body) : undefined,
     });
   },
