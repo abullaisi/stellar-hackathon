@@ -25,3 +25,7 @@ tmp-bindings/
 
 # macOS
 .DS_Store
+
+# Local blob storage (dev fallback when BLOB_READ_WRITE_TOKEN is empty)
+.blobs/
+**/.blobs/
