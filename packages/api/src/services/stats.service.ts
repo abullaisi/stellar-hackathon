@@ -1,5 +1,4 @@
-import { nativeToScVal, rpc, xdr as xdrNs } from '@komunify/contract-client';
-import { getNetworkConfig } from '@komunify/shared';
+import { nativeToScVal, rpc, scValToNative, xdr as xdrNs } from '@komunify/contract-client';
 import { env } from '../config/env.js';
 import { currentEpoch, epochEndsAt, getStats } from '../lib/soroban.js';
 import { logger } from '../config/logger.js';
@@ -99,7 +98,7 @@ function extractAmount(data: Record<string, unknown> | undefined): string | unde
 
 function scValToNativeSafe(val: xdrNs.ScVal): unknown {
   try {
-    return rpc.Api.scValToNative ? rpc.Api.scValToNative(val) : undefined;
+    return scValToNative(val);
   } catch {
     return undefined;
   }

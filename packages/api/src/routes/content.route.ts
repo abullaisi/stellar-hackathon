@@ -67,6 +67,9 @@ content.post('/:draftId/confirm', requireAuth, zValidator('json', ConfirmRequest
 content.get('/:contentId/download', requireAuth, async (c) => {
   const address = c.get('address');
   const contentId = c.req.param('contentId');
+  if (!contentId) {
+    throw new BadRequestError('contentId is required');
+  }
 
   const result = await ContentService.download(contentId, address);
   return success(c, result);
