@@ -12,9 +12,18 @@ Last updated: 2026-07-10 — planning complete, no code written.
 
 ## Start here
 
-**Current phase: Phase 0 — Foundation. Complete.** See exit-criteria evidence below.
+**Current phase: Phase 2 — Integration.** Phases 0 and 1 complete; all three lanes merged into
+`feat/komunify-mvp`.
 
-Phase 1 lanes (A/B/C) are now unblocked. Pick up the first unchecked box under Phase 1.
+- Lane A (contracts): 15+7 unit tests green, both contracts deployed to testnet, seed data on-chain.
+- Lane B (API): 17/17 tests green incl. 4 download-gate integration tests against the live contract.
+- Lane C (web): typecheck + build clean, dashboard panels wired to real on-chain reads.
+- **Integrated typecheck across shared/contract-client/api/web: clean** (verified post-merge on the
+  combined tree, 2026-07-11).
+
+Remaining for Phase 2: a live two-Freighter-wallet walk of the demo script — needs a human with the
+browser extension; the on-chain loop itself is already proven by Lane B's integration tests + the
+seed run. Then Phase 3 (README / deploy / deck / video).
 
 ---
 
