@@ -21,7 +21,7 @@ function truncateAddress(address: string) {
 
 // Logo component
 function Logo() {
-  return <img src="/logo-mark.png" alt="Komunify" className="h-8 w-auto shrink-0" />;
+  return <img src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/logo-mark.png`} alt="Komunify" className="h-8 w-auto shrink-0" />;
 }
 
 // Header with nav
@@ -1077,7 +1077,7 @@ function ClosingCTASection() {
         className="max-w-6xl mx-auto flex flex-col md:flex-row md:items-center gap-9 md:gap-12"
       >
         <div className="flex items-center gap-6 md:gap-9 min-w-0">
-          <img src="/logo-mark.png" alt="Komunify" className="w-16 h-16 object-contain shrink-0" />
+          <img src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/logo-mark.png`} alt="Komunify" className="w-16 h-16 object-contain shrink-0" />
           <div className="w-px h-16 bg-[var(--color-border-medium)] shrink-0" />
           <p className="font-serif font-medium tracking-tight leading-[1.08] text-[1.85rem] sm:text-[2.3rem] md:text-[2.7rem] text-[var(--color-content-primary)]">
             <span className="block">Single subscription.</span>

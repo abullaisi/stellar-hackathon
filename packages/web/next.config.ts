@@ -44,6 +44,9 @@ const nextConfig: NextConfig = {
 if (process.env.STATIC_EXPORT) {
   nextConfig.output = 'export';
   nextConfig.images = { unoptimized: true };
+  if (process.env.BASE_PATH) {
+    nextConfig.basePath = process.env.BASE_PATH;
+  }
 }
 
 export default nextConfig;
