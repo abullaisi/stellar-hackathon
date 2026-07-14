@@ -761,7 +761,7 @@ function SplitLedgerSection() {
           whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ delay: 0.12, duration: 0.8, ease: EASE }}
-          className="relative mt-14 md:mt-16 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-stretch"
+          className="relative mt-14 md:mt-16 grid grid-cols-1 lg:grid-cols-[1fr_7rem_1fr] gap-8 lg:gap-0 items-stretch"
         >
           <div className="relative z-10 p-1.5 rounded-[2rem] bg-[var(--color-content-accent)]/[0.07] ring-1 ring-[rgba(250,214,87,0.3)] shadow-[0_0_24px_rgba(250,214,87,0.35)]">
             <div className="h-full min-h-72 rounded-[calc(2rem-0.375rem)] bg-[var(--color-bg-elevated)] border border-[var(--color-content-accent)]/25 px-7 py-8 md:px-9 md:py-10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.04)] flex flex-col justify-between">
@@ -780,9 +780,43 @@ function SplitLedgerSection() {
             </div>
           </div>
 
-          <div className="relative flex flex-col justify-center gap-4">
-            <div className="pointer-events-none absolute -left-10 top-[16.66%] bottom-[16.66%] w-px bg-gradient-to-b from-[var(--color-content-accent)]/20 via-[var(--color-content-accent)]/70 to-[var(--color-content-accent)]/20 hidden lg:block" />
-            <div className="pointer-events-none absolute -left-20 top-1/2 w-10 h-px bg-gradient-to-r from-[var(--color-content-accent)]/20 to-[var(--color-content-accent)]/70 hidden lg:block" />
+          <div className="hidden lg:block relative">
+            <svg
+              className="w-full h-full overflow-visible"
+              viewBox="0 0 100 300"
+              preserveAspectRatio="none"
+              aria-hidden="true"
+            >
+              <defs>
+                <linearGradient id="splitGrad" gradientUnits="userSpaceOnUse" x1="0" y1="150" x2="100" y2="150">
+                  <stop offset="0%" stopColor="rgba(250,214,87,0.85)" />
+                  <stop offset="100%" stopColor="rgba(250,214,87,0.25)" />
+                </linearGradient>
+              </defs>
+              {[
+                'M -2 150 C 45 150, 45 50, 102 50',
+                'M -2 150 L 102 150',
+                'M -2 150 C 45 150, 45 250, 102 250',
+              ].map((d, index) => (
+                <motion.path
+                  key={d}
+                  d={d}
+                  fill="none"
+                  stroke="url(#splitGrad)"
+                  strokeWidth={1.5}
+                  strokeLinecap="round"
+                  vectorEffect="non-scaling-stroke"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  whileInView={{ pathLength: 1, opacity: 1 }}
+                  viewport={{ once: true, margin: '-80px' }}
+                  transition={{ delay: 0.2 + index * 0.08, duration: 0.6, ease: EASE }}
+                />
+              ))}
+              <circle cx={2} cy={150} r={3} fill="#fad657" />
+            </svg>
+          </div>
+
+          <div className="relative flex flex-col justify-between">
             {payouts.map((payout, index) => (
               <motion.div
                 key={payout.name}
@@ -792,7 +826,6 @@ function SplitLedgerSection() {
                 transition={{ delay: 0.18 + index * 0.08, duration: 0.7, ease: EASE }}
                 className="relative p-1 rounded-[1.4rem] bg-[var(--color-content-accent)]/[0.035] ring-1 ring-[rgba(250,214,87,0.1)]"
               >
-                <span className="pointer-events-none absolute -left-10 top-1/2 w-10 h-px bg-gradient-to-r from-[var(--color-content-accent)]/70 to-[var(--color-content-accent)]/20 hidden lg:block" />
                 <div className="rounded-[calc(1.4rem-0.25rem)] bg-[var(--color-bg-elevated)] border border-[var(--color-border-medium)] px-5 py-5 flex items-center justify-between gap-5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.04)]">
                   <div>
                     <p className="font-serif text-[1.05rem] text-[var(--color-content-primary)]">{payout.name}</p>
