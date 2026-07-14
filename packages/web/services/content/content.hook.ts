@@ -104,6 +104,13 @@ export function useOpenContent(contentId: string) {
           await ContentService.recordAccess(address, bigId);
           return await ContentService.download(contentId);
         }
+        if (err instanceof ApiError && err.code === 'SUB_INACTIVE') {
+          // Same race as above but on the API's is_active() simulation — e.g. right
+          // after subscribe() confirms, its RPC read can still lag behind. Retry
+          // once after a short delay before surfacing this as a real rejection.
+          await new Promise((resolve) => setTimeout(resolve, 1500));
+          return await ContentService.download(contentId);
+        }
         throw err;
       }
     },
