@@ -85,11 +85,11 @@ export function StartWizard() {
     return (
       <section className="card center">
         <p style={{ margin: '0 0 4px', fontWeight: 600, display: 'inline-flex', gap: 6, alignItems: 'center' }}>
-          <Icon name="wallet" size={16} /> Connect your wallet to begin
+          <Icon name="wallet" size={16} /> Have premium resources?
         </p>
         <p className="hint" style={{ marginTop: 0 }}>
-          Your Stellar wallet is your account here. No email, no password. Connect Freighter to
-          start your community.
+          Publish your digital assets, private access, and learning resources. Earn payout straight
+          to your wallet anytime. It's free to start and takes about minutes.
         </p>
         <Button type="button" onClick={connect} disabled={connecting}>
           {connecting ? 'Connecting…' : 'Connect Freighter'}

@@ -41,7 +41,7 @@ export function ExploreView() {
             className={mode === 'content' ? 'pill accent' : 'pill'}
             onClick={() => setMode('content')}
           >
-            <Icon name="sparkle" size={12} /> Content
+            <Icon name="sparkle" size={12} /> Packages
           </button>
         </div>
       </div>

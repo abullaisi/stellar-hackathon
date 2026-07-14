@@ -32,7 +32,7 @@ export function DashboardShell() {
   return (
     <>
       <header>
-        <p className="tagline" style={{ marginTop: 0 }}>One subscription. Every community.</p>
+        <p className="tagline" style={{ marginTop: 0 }}>Single subscription multiple benefits</p>
         <ExploreCta />
       </header>
 

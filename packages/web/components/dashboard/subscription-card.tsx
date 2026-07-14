@@ -50,7 +50,7 @@ export function SubscriptionCard() {
   return (
     <section className="card">
       <h2>Membership</h2>
-      <span className="label">One subscription · every community</span>
+      <span className="label">Single subscription multiple benefits</span>
       {config.isLoading ? (
         <Skeleton className="h-9 w-32 rounded-md" style={{ marginTop: 6 }} />
       ) : (
