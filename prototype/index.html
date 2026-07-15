@@ -41,9 +41,9 @@
     <!-- hero card -->
     <div class="card center">
       <h1 class="headline">Single subscription.<span class="gold">Multiple benefits.</span></h1>
-      <p class="hint">Komunify helps members unlock premium access, discounts, and exclusive offers across community partners with a single on-chain subscription.</p>
+      <p class="hint">Komunify bundles Premium access and Member discounts across community partners with a single on-chain subscription.</p>
       <div class="avatar-group" id="partner-avatars">
-        <span class="avatar-note">3 partner communities in this bundle</span>
+        <span class="avatar-note"></span>
       </div>
     </div>
 
@@ -76,7 +76,7 @@
     <div class="card">
       <div class="num-label"><span class="num">09</span> FOR PARTNERS</div>
       <h2>Have premium resources?</h2>
-      <p class="hint">Publish your digital assets, private access, and learning resources. Earn payout straight to your wallet anytime. It's free to start and takes just a few minutes.</p>
+      <p class="hint">Publish Learning resources and Digital assets for members. Earn payout straight to your wallet anytime. It's free to start and takes just a few minutes.</p>
       <div class="row tight">
         <a class="btn ghost" href="#" title="Partner onboarding, placeholder in this prototype">Become a partner</a>
       </div>
@@ -97,10 +97,11 @@
       // partner cluster (avatars go before the note)
       var group = document.getElementById("partner-avatars");
       var note = group.querySelector(".avatar-note");
+      note.textContent = KDATA.partners.length + " partner communities in this bundle";
       KDATA.partners.forEach(function (p) {
         var av = document.createElement("span");
         av.className = "avatar" + (p.avatarCls ? " " + p.avatarCls : "");
-        av.textContent = p.initial;
+        av.innerHTML = avatarInner(p);
         av.title = p.name;
         group.insertBefore(av, note);
       });

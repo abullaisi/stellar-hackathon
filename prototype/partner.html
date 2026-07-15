@@ -61,6 +61,7 @@
             </div>
             <span class="badge unlocked">UNLOCKED</span>
           </div>
+          <div class="content-meta" id="p-members"></div>
           <p class="hint">Included with your Community Bundle. Access is checked against your on-chain entitlement.</p>
         </div>
 
@@ -107,9 +108,10 @@
 
     document.title = "Komunify · " + partner.name;
     var av = document.getElementById("p-avatar");
-    av.textContent = partner.initial;
+    av.innerHTML = avatarInner(partner);
     if (partner.avatarCls) av.classList.add(partner.avatarCls);
     document.getElementById("p-name").textContent = partner.name;
+    document.getElementById("p-members").textContent = partner.members || "Pilot partner";
 
     var typeLabels = { course: "COURSE", video: "VIDEO", ebook: "EBOOK", link: "EXTERNAL LINK" };
 

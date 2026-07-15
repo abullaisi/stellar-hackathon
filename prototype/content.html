@@ -128,7 +128,7 @@
     var typeLabels = { course: "COURSE", video: "VIDEO", ebook: "EBOOK" };
 
     var av = document.getElementById("c-avatar");
-    av.textContent = partner.initial;
+    av.innerHTML = avatarInner(partner);
     if (partner.avatarCls) av.classList.add(partner.avatarCls);
     document.getElementById("c-partner").textContent = partner.name;
     var cThumb = document.getElementById("c-thumb");

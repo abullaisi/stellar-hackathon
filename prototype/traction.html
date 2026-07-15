@@ -86,7 +86,7 @@
     var stats = KDATA.stats;
     var chips = [
       { label: "SUBSCRIBERS", value: String(stats.subscribers), delta: "+12 this week" },
-      { label: "VOLUME", value: fmtXlm(stats.volumeXlm), delta: "" },
+      { label: "VOLUME", value: fmtUsdc(stats.volumeUsdc), delta: "" },
       { label: "PAYOUT EVENTS", value: String(stats.payoutEvents), delta: "" }
     ];
     document.getElementById("stat-strip").innerHTML = chips.map(function (c) {
@@ -101,13 +101,13 @@
 
     // Payout summary: each share is its pct of total volume (no glow here)
     document.getElementById("payout-rows").innerHTML = KDATA.split.map(function (s) {
-      var amt = (KDATA.stats.volumeXlm * s.pct) / 100;
+      var amt = (KDATA.stats.volumeUsdc * s.pct) / 100;
       var fillCls = "alloc-fill" + (s.cls ? " " + s.cls : "");
       return (
         '<div class="alloc-row">' +
           '<span class="alloc-name">' + s.name + '</span>' +
           '<span class="alloc-pct">' + s.pct + '%</span>' +
-          '<span class="alloc-amt">' + fmtXlm(amt) + '</span>' +
+          '<span class="alloc-amt">' + fmtUsdc(amt) + '</span>' +
           '<div class="alloc-track"><div class="' + fillCls + '" style="width:' + s.pct + '%"></div></div>' +
         '</div>'
       );

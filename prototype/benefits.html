@@ -58,7 +58,7 @@
     </div>
 
     <!-- membership card -->
-    <div class="card">
+    <div class="card card-selected">
       <div class="label">MEMBERSHIP</div>
       <div class="row">
         <h2>Community Bundle</h2>
@@ -72,7 +72,7 @@
     </div>
 
     <!-- partner cards render into this grid -->
-    <div class="grid-3" id="partner-grid"></div>
+    <div class="grid-2" id="partner-grid"></div>
 
     <!-- listing card -->
     <div class="card" id="listing-card">
@@ -128,7 +128,7 @@
       card.innerHTML =
         '<div class="row">' +
           '<div class="row tight">' +
-            '<span class="avatar' + (p.avatarCls ? " " + p.avatarCls : "") + '">' + p.initial + '</span>' +
+            '<span class="avatar' + (p.avatarCls ? " " + p.avatarCls : "") + '">' + avatarInner(p) + '</span>' +
             '<h2>' + p.name + '</h2>' +
             '<a class="icon-link" href="partner.html?p=' + p.id + '" title="Preview member content" aria-label="Preview ' + p.name + ' member content">' +
               '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>' +
@@ -136,6 +136,7 @@
           '</div>' +
           '<span class="badge unlocked">UNLOCKED</span>' +
         '</div>' +
+        '<div class="content-meta">' + (p.members || "Pilot partner") + '</div>' +
         benefits;
       partnerGrid.appendChild(card);
     });

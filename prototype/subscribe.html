@@ -49,12 +49,12 @@
   <section class="card" id="sub-card">
     <div class="num-label"><span class="num">02</span> SUBSCRIPTION</div>
     <h2>Community Bundle, monthly</h2>
-    <p class="balance" id="price">10 XLM</p>
+    <p class="balance" id="price">10 USDC</p>
     <div class="benefit-line"><span>Member benefits at every partner community</span></div>
     <div class="benefit-line"><span>Subscriber prices across the partner listing</span></div>
     <div class="benefit-line"><span>An on-chain receipt for every payment</span></div>
     <div class="row tight">
-      <button id="pay-btn">Pay 10 XLM</button>
+      <button id="pay-btn">Pay 10 USDC</button>
     </div>
   </section>
 
@@ -119,19 +119,19 @@
     var unlockCta = document.getElementById("unlock-cta");
 
     // Price from data layer.
-    document.getElementById("price").textContent = fmtXlm(KDATA.priceXlm);
-    payBtn.textContent = "Pay " + fmtXlm(KDATA.priceXlm);
+    document.getElementById("price").textContent = fmtUsdc(KDATA.priceUsdc);
+    payBtn.textContent = "Pay " + fmtUsdc(KDATA.priceUsdc);
 
     // Split rows from KDATA.split (70 / 20 / 10 of the price).
     var allocWrap = document.getElementById("alloc-rows");
     KDATA.split.forEach(function (s) {
-      var amt = (KDATA.priceXlm * s.pct) / 100;
+      var amt = (KDATA.priceUsdc * s.pct) / 100;
       var row = document.createElement("div");
       row.className = "alloc-row";
       row.innerHTML =
         '<span class="alloc-name">' + s.name + "</span>" +
         '<span class="alloc-pct">' + s.pct + "%</span>" +
-        '<span class="alloc-amt">' + fmtXlm(amt) + "</span>" +
+        '<span class="alloc-amt">' + fmtUsdc(amt) + "</span>" +
         '<div class="alloc-track"><div class="alloc-fill ' + s.cls + '" style="width:' + s.pct + '%"></div></div>';
       allocWrap.appendChild(row);
     });
@@ -176,7 +176,7 @@
     payBtn.addEventListener("click", function () {
       payBtn.disabled = true;
       K.subscribe(showPending, function (hash) {
-        K.logActivity("Subscribed", "Community Bundle · " + fmtXlm(KDATA.priceXlm));
+        K.logActivity("Subscribed", "Community Bundle · " + fmtUsdc(KDATA.priceUsdc));
         showSuccess(hash, true);
       });
     });

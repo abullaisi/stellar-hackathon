@@ -1239,7 +1239,7 @@ function TeamSection() {
       name: 'Jason Stanley',
       role: 'Engineering',
       community: 'Dev Web3 Bandung',
-      photo: null,
+      photo: '/team/jason.jpg?v=2',
       linkedin: 'https://www.linkedin.com/in/jason-stanley-yoman/',
       x: 'https://x.com/jason_yomann',
       niche: 'Web3 builders & hackathons',
@@ -1250,7 +1250,7 @@ function TeamSection() {
       name: 'Faris Abdurrahman',
       role: 'Product Manager',
       community: 'Manexus',
-      photo: null,
+      photo: '/team/faris.jpg?v=2',
       linkedin: 'https://www.linkedin.com/in/faris-abdurrahman/',
       x: null,
       niche: 'Web3 + AI community hub',
@@ -1261,7 +1261,7 @@ function TeamSection() {
       name: 'Qatrun Nada',
       role: 'Business + Partnerships',
       community: 'Serenity',
-      photo: null,
+      photo: '/team/nada.jpg?v=2',
       linkedin: 'https://www.linkedin.com/in/nadadv/',
       x: null,
       niche: null,
@@ -1589,7 +1589,7 @@ function Footer() {
           </div>
           <div className="flex items-center gap-2">
           <a
-            href="https://x.com/komunifyapp"
+            href="https://x.com/komunify.app"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Komunify on X"
@@ -1611,7 +1611,7 @@ function Footer() {
             </svg>
           </a>
           <a
-            href="https://t.me/komunify"
+            href="https://t.me/komunify.app"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Komunify on Telegram"

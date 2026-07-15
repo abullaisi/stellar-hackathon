@@ -12,7 +12,7 @@ const KDATA = {
   demoAddress: "GBUA4BW4NBE6T3XVYLXAQX7RBSM5NXNCKXEIW36KL6NYIUNZOAYRP4D2",
   demoBalanceXlm: 9873.42,
 
-  priceXlm: 10,
+  priceUsdc: 10,
 
   // 70/20/10 split, as configured in the deployed contract constructor
   split: [
@@ -28,6 +28,8 @@ const KDATA = {
       name: "Dev Web3 Bandung",
       initial: "D",
       avatarCls: "",
+      logo: "communities/dev-web3-bandung.png",
+      members: "+2.4K members",
       benefits: [
         { t: "Weekly builder workshop seat", d: "Reserved spot every Thursday, on site or online" },
         { t: "Private Soroban study group", d: "Small-group sessions with a community mentor" }
@@ -39,32 +41,54 @@ const KDATA = {
       ]
     },
     {
-      id: "sid",
-      name: "Stellar ID Collective",
-      initial: "S",
+      id: "swg",
+      name: "Sawargy",
+      initial: "SW",
       avatarCls: "a2",
+      logo: "communities/sawargy.png",
+      members: "Pilot partner",
       benefits: [
-        { t: "Testnet office hours access", d: "Drop-in help from ecosystem devs, twice a week" },
-        { t: "Ecosystem job board early access", d: "See new roles 48 hours before public posting" }
+        { t: "Member discount on Sawargy services", d: "10% off productized design and PM services for active subscribers" },
+        { t: "Digital asset library access", d: "Templates, frameworks, and PM-OS resources for members" }
       ],
       content: [
-        { type: "ebook", title: "Stellar Ecosystem Playbook 2026", meta: "48 pages · PDF", thumb: "assets/sid-0.jpg" },
-        { type: "video", title: "Office Hours Replay: Testnet to Mainnet", meta: "38m · members only", thumb: "assets/sid-1.jpg" },
-        { type: "link", title: "Ecosystem Job Board", meta: "Early access for subscribers", url: "https://stellar.org/ecosystem" }
+        { type: "ebook", title: "Sawargy PM Operating System Starter Kit", meta: "32 pages · PDF" },
+        { type: "video", title: "Sawargy Studio Walkthrough", meta: "22m · members only" },
+        { type: "link", title: "Members Community Chat", meta: "Invite link for active subscribers", url: "https://t.me/" }
       ]
     },
     {
-      id: "ccl",
-      name: "Circolo Creative Lab",
-      initial: "C",
+      id: "srn",
+      name: "Serenity",
+      initial: "SR",
       avatarCls: "a3",
+      logo: "communities/serenity.webp",
+      members: "Pilot partner",
       benefits: [
-        { t: "Co-working day pass, 2x per month", d: "Any weekday at the Circolo space, bookable online" }
+        { t: "Premium access to Serenity retreats", d: "Priority booking for members-only wellness sessions" },
+        { t: "Learning resources: mindful productivity", d: "Guided courses on focus, rest, and sustainable work" }
       ],
       content: [
-        { type: "course", title: "Creative Ops Mini-Class", meta: "4 modules · 55m", thumb: "assets/ccl-0.jpg", done: 0, modules: ["Running a studio calendar", "Pricing creative work", "Client handoff rituals"] },
-        { type: "ebook", title: "Co-working Guide and House Rules", meta: "12 pages · PDF", thumb: "assets/ccl-1.jpg" },
-        { type: "link", title: "Booking Calendar", meta: "Reserve your day pass", url: "https://cal.com" }
+        { type: "course", title: "Mindful Productivity Fundamentals", meta: "4 modules · 1h 05m", done: 0, modules: ["Designing a rest rhythm", "Attention and deep work", "Recovery between sprints", "Building a sustainable week"] },
+        { type: "ebook", title: "Serenity Wellbeing Guide", meta: "20 pages · PDF" },
+        { type: "link", title: "Retreat Booking", meta: "Reserve your members-only session", url: "https://cal.com" }
+      ]
+    },
+    {
+      id: "mnx",
+      name: "Manexus",
+      initial: "M",
+      avatarCls: "",
+      logo: "communities/manexus.png",
+      members: "Pilot partner",
+      benefits: [
+        { t: "Member discount on Manexus tooling", d: "15% off partner software and services for active subscribers" },
+        { t: "Digital asset drops", d: "Early access to new templates and creative assets" }
+      ],
+      content: [
+        { type: "video", title: "Manexus Product Walkthrough", meta: "18m · members only" },
+        { type: "ebook", title: "Manexus Toolkit Guide", meta: "16 pages · PDF" },
+        { type: "link", title: "Partner Discount Portal", meta: "Redeem your member pricing", url: "https://cal.com" }
       ]
     }
   ],
@@ -79,8 +103,8 @@ const KDATA = {
       kind: "Digital resource"
     },
     {
-      name: "Circolo Event Voucher",
-      partner: "Circolo Creative Lab",
+      name: "Serenity Retreat Voucher",
+      partner: "Serenity",
       priceXlm: 12,
       memberPriceXlm: 8,
       kind: "Tokenized voucher"
@@ -90,15 +114,15 @@ const KDATA = {
   // Traction dashboard mock reads (prototype numbers; real contract has count=1, volume=10)
   stats: {
     subscribers: 128,
-    volumeXlm: 1280,
+    volumeUsdc: 1280,
     payoutEvents: 384
   },
 
   activity: [
-    { kind: "Subscribe", detail: "10 XLM split 7 / 2 / 1", addr: "GAJX…K3TQ", reward: "+10 XLM", when: "2m ago" },
-    { kind: "Payout", detail: "to project owner", addr: "GDMV…HK2A", reward: "+7 XLM", when: "2m ago" },
-    { kind: "Payout", detail: "to community manager", addr: "GDS7…M7FQ", reward: "+2 XLM", when: "2m ago" },
-    { kind: "Subscribe", detail: "10 XLM split 7 / 2 / 1", addr: "GCRZ…9WLN", reward: "+10 XLM", when: "18m ago" },
+    { kind: "Subscribe", detail: "10 USDC split 7 / 2 / 1", addr: "GAJX…K3TQ", reward: "+10 USDC", when: "2m ago" },
+    { kind: "Payout", detail: "to project owner", addr: "GDMV…HK2A", reward: "+7 USDC", when: "2m ago" },
+    { kind: "Payout", detail: "to community manager", addr: "GDS7…M7FQ", reward: "+2 USDC", when: "2m ago" },
+    { kind: "Subscribe", detail: "10 USDC split 7 / 2 / 1", addr: "GCRZ…9WLN", reward: "+10 USDC", when: "18m ago" },
     { kind: "Benefit redeemed", detail: "Circolo Event Voucher", addr: "GAJX…K3TQ", reward: "", when: "1h ago" }
   ]
 };
@@ -236,7 +260,7 @@ function timeAgo(ts) {
       localStorage.setItem("k_progress", JSON.stringify({ "dwb:0": { doneModules: [0], pct: 0 } }));
       localStorage.setItem("k_act", JSON.stringify([
         { kind: "Module done", detail: "Accounts, keys and testnet XLM", at: Date.now() - 60000 },
-        { kind: "Subscribed", detail: "Community Bundle · 10 XLM", at: Date.now() - 120000 }
+        { kind: "Subscribed", detail: "Community Bundle · 10 USDC", at: Date.now() - 120000 }
       ]));
     }
   }
@@ -259,6 +283,19 @@ function fmtXlm(n) {
       maximumFractionDigits: 2
     }) + " XLM"
   );
+}
+
+function fmtUsdc(n) {
+  return (
+    Number(n).toLocaleString("en-US", {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 2
+    }) + " USDC"
+  );
+}
+
+function avatarInner(p) {
+  return p.logo ? '<img src="' + p.logo + '" alt="' + p.name + '" loading="lazy">' : p.initial;
 }
 
 // Shared chrome: wallet chips (topbar on funnel pages, sidenav on app pages)
@@ -344,7 +381,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var mtop = document.createElement("div");
     mtop.className = "mobile-topbar";
     mtop.innerHTML =
-      '<button class="hamburger" aria-label="Open menu" aria-expanded="false">' + ICON_MENU + '</button>' +
+      '<button class="hamburger ghost" aria-label="Open menu" aria-expanded="false">' + ICON_MENU + '</button>' +
       '<a class="logo" href="index.html">Komunify</a>';
     appMain.insertBefore(mtop, appMain.firstChild);
 
@@ -366,7 +403,7 @@ document.addEventListener("DOMContentLoaded", function () {
     np.innerHTML = '<div class="label">PARTNERS</div>' + KDATA.partners.map(function (p) {
       var act = activePid === p.id ? " active" : "";
       return '<a class="nav-item' + act + '" href="partner.html?p=' + p.id + '">' +
-        '<span class="avatar' + (p.avatarCls ? " " + p.avatarCls : "") + '">' + p.initial + '</span>' +
+        '<span class="avatar' + (p.avatarCls ? " " + p.avatarCls : "") + '">' + avatarInner(p) + '</span>' +
         p.name + '</a>';
     }).join("");
   }

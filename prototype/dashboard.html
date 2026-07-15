@@ -71,7 +71,7 @@
       </div>
 
       <div class="stack">
-        <div class="card">
+        <div class="card card-selected">
           <div class="label">MEMBERSHIP</div>
           <div class="row">
             <h2>Community Bundle</h2>
@@ -187,7 +187,7 @@
       group.className = "lib-group";
       var head =
         '<div class="row tight lib-head">' +
-          '<span class="avatar' + (p.avatarCls ? " " + p.avatarCls : "") + '">' + p.initial + '</span>' +
+          '<span class="avatar' + (p.avatarCls ? " " + p.avatarCls : "") + '">' + avatarInner(p) + '</span>' +
           '<div>' +
             '<div class="content-title">' + p.name + '</div>' +
             '<div class="content-meta">' + (p.content || []).length + ' items included</div>' +
