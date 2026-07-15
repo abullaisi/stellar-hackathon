@@ -7,8 +7,9 @@ import { SmoothScroll } from '@/providers/smooth-scroll';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'komunify',
-  description: 'Generated with create-monorepo',
+  title: 'Komunify · One subscription, every community perk',
+  description:
+    'Pay one subscription on Stellar and unlock premium access, member discounts, learning resources, and digital assets across partner communities. Soroban splits every payment on-chain.',
 };
 
 export default function RootLayout({

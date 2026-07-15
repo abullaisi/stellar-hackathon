@@ -1,9 +1,9 @@
 'use client';
 
-import { animate, motion, AnimatePresence, useInView, useMotionValue, useTransform, useSpring, useReducedMotion, type MotionValue } from 'framer-motion';
+import { animate, motion, AnimatePresence, useInView, useMotionValue, useTransform, useSpring, useReducedMotion, useScroll, type MotionValue } from 'framer-motion';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import Link from 'next/link';
-import { Play, Wallet, Coins, ShieldCheck, ChevronDown, Crown, BadgePercent, BookOpen, Layers } from 'lucide-react';
+import { Wallet, Coins, ShieldCheck, ChevronDown, Crown, BadgePercent, BookOpen, Layers } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { ApiClient } from '@/services/api/client';
 import { useWallet } from '@/providers/wallet-provider';
@@ -420,12 +420,24 @@ function SectionFlourish({ lines = 'both' }: { lines?: 'both' | 'upper' | 'lower
 
 // Hero section
 function HeroSection() {
+  const heroRef = useRef<HTMLElement | null>(null);
+  const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
+  const heroBright = useTransform(scrollYProgress, [0, 0.6], [0, 1]);
+
   return (
-    <section className="relative overflow-hidden">
+    <section ref={heroRef} className="relative overflow-hidden">
       <Header />
 
       {/* Ambient glow */}
       <div aria-hidden className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(120%_100%_at_50%_110%,rgba(250,214,87,0.30),rgba(250,214,87,0.12)_45%,rgba(250,214,87,0)_80%),linear-gradient(180deg,rgba(250,214,87,0.03),rgba(250,214,87,0.06)_60%,rgba(250,214,87,0.10)_100%)]" />
+      {!reduce && (
+        <motion.div
+          aria-hidden
+          style={{ opacity: heroBright }}
+          className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(120%_100%_at_50%_110%,rgba(250,214,87,0.45),rgba(250,214,87,0.18)_45%,rgba(250,214,87,0)_80%),linear-gradient(180deg,rgba(250,214,87,0.05),rgba(250,214,87,0.10)_60%,rgba(250,214,87,0.16)_100%)]"
+        />
+      )}
       <div aria-hidden className="pointer-events-none absolute left-1/2 bottom-[-22rem] -translate-x-1/2 w-[70rem] h-[70rem] rounded-full z-0 blur-[30px] bg-[radial-gradient(closest-side,rgba(250,214,87,0.20),transparent_70%)]" />
 
       {/* Signature orbital emblem, floats top-left, gently bobbing */}
@@ -473,14 +485,14 @@ function HeroSection() {
             <KineticWord delay={0.35}>for</KineticWord>
             <span className="ml-3">
               <KineticWord delay={0.45}>
-                <span className="bg-gradient-to-r from-[#fef0bf] via-[#fad657] to-[#b08d3e] bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-[#fef0bf] to-[#fad657] bg-clip-text text-transparent">
                   multiple
                 </span>
               </KineticWord>
             </span>
             <span className="ml-3">
               <KineticWord delay={0.55}>
-                <span className="bg-gradient-to-r from-[#fef0bf] via-[#fad657] to-[#b08d3e] bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-[#fad657] to-[#b08d3e] bg-clip-text text-transparent">
                   community perks.
                 </span>
               </KineticWord>
@@ -534,56 +546,22 @@ function HeroSection() {
         >
           <ParallaxLayer depth={12} className="p-[1.5px] rounded-[5.5px] bg-gradient-to-br from-[rgba(250,214,87,0.5)] to-[rgba(250,214,87,0.05)] via-[rgba(250,214,87,0.35)]">
             <div className="relative rounded-[4px] overflow-hidden bg-[#111110] aspect-video">
-              {/* Backdrop texture */}
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(250,214,87,0.12),transparent_55%),radial-gradient(circle_at_75%_80%,rgba(250,214,87,0.08),transparent_50%)]" />
-              <div
-                className="absolute inset-0 opacity-[0.08]"
-                style={{
-                  backgroundImage:
-                    'linear-gradient(to right, #fad657 1px, transparent 1px), linear-gradient(to bottom, #fad657 1px, transparent 1px)',
-                  backgroundSize: '40px 40px',
-                }}
+              {/* Product demo loop (14s, silent) */}
+              <video
+                src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/demo.mp4`}
+                poster={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/demo-poster.jpg`}
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="absolute inset-0 h-full w-full object-cover"
               />
-              {/* Scanline */}
-              <div className="scanline absolute left-0 right-0 h-1/3 bg-gradient-to-b from-transparent via-[rgba(250,214,87,0.16)] to-transparent animate-[scan_5s_linear_infinite]" />
 
               {/* Corner tags */}
-              <div className="absolute top-4 right-4 text-[10px] tracking-widest text-[color-mix(in_srgb,var(--color-content-accent)_80%,transparent)] border border-[color-mix(in_srgb,var(--color-content-accent)_30%,transparent)] rounded px-2 py-1 bg-black/30">
-                LIVE DEMO
-              </div>
               <div className="absolute top-4 left-4 text-[10px] tracking-widest text-[color-mix(in_srgb,var(--color-content-primary)_50%,transparent)] border border-[color-mix(in_srgb,var(--color-content-primary)_15%,transparent)] rounded px-2 py-1 bg-black/30">
                 HOW IT WORKS
               </div>
 
-              {/* Play button */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="relative w-20 h-20 md:w-24 md:h-24 rounded-full flex items-center justify-center group"
-                >
-                  <motion.span
-                    animate={{ scale: [1, 1.85], opacity: [0.55, 0] }}
-                    transition={{ duration: 2.6, repeat: Infinity }}
-                    className="absolute inset-0 rounded-full border border-[color-mix(in_srgb,var(--color-content-accent)_50%,transparent)]"
-                  />
-                  <span className="absolute inset-0 rounded-full border border-[color-mix(in_srgb,var(--color-content-accent)_30%,transparent)]" />
-                  <span className="relative w-full h-full rounded-full bg-gradient-to-br from-[#fce27e] via-[#fad657] to-[#c9a83f] flex items-center justify-center group-hover:scale-105 transition-transform shadow-[0_8px_30px_-8px_rgba(250,214,87,0.55)]">
-                    <Play size={22} className="text-[var(--color-content-on-accent)] fill-current" />
-                  </span>
-                </motion.button>
-              </div>
-
-              {/* Bottom bar */}
-              <div className="absolute bottom-0 left-0 right-0 px-5 py-4 flex items-center gap-4">
-                <span className="text-[11px] text-[color-mix(in_srgb,var(--color-content-primary)_60%,transparent)]">00:00 / 02:14</span>
-                <div className="flex-1 h-[2px] bg-[color-mix(in_srgb,var(--color-content-primary)_15%,transparent)] rounded-full overflow-hidden">
-                  <div className="h-full w-[8%] bg-[var(--color-content-accent)]" />
-                </div>
-                <svg width="16" height="16" viewBox="0 0 24 24" className="text-[color-mix(in_srgb,var(--color-content-primary)_60%,transparent)] fill-current">
-                  <path d="M14 3.23v2.06c3.39.49 6 3.39 6 6.71s-2.61 6.22-6 6.71v2.06c4.49-.55 8-4.44 8-8.77s-3.51-8.22-8-8.77zM16.5 12c0-1.77-1-3.29-2.5-4.03v8.06c1.5-.74 2.5-2.26 2.5-4.03zM3 9v6h4l5 5V4L7 9H3z" />
-                </svg>
-              </div>
             </div>
           </ParallaxLayer>
         </motion.div>
@@ -1473,9 +1451,13 @@ function FAQItem({
 
 function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const faqRef = useRef<HTMLElement | null>(null);
+  const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: faqRef, offset: ['start end', 'end end'] });
+  const faqBright = useTransform(scrollYProgress, [0.2, 0.9], [0, 1]);
 
   return (
-    <section id="faq" className="relative py-24 md:py-40 scroll-mt-24 overflow-hidden">
+    <section ref={faqRef} id="faq" className="relative py-24 md:py-40 scroll-mt-24 overflow-hidden">
       {/* Quiet echo, balances the composition bottom-right, same visual DNA */}
       <ParallaxLayer depth={50} className="hidden lg:block absolute bottom-4 right-[3%] w-64 h-64 pointer-events-none">
         <motion.div
@@ -1496,6 +1478,13 @@ function FAQSection() {
 
       {/* Ambient side glow, mirrors the How-it-works section's atmosphere */}
       <div className="pointer-events-none absolute right-0 bottom-0 translate-x-1/2 translate-y-1/2 w-[110rem] h-[110rem] rounded-full blur-[60px] bg-[radial-gradient(closest-side,rgba(250,214,87,0.15),transparent_70%)]" />
+      {!reduce && (
+        <motion.div
+          aria-hidden
+          style={{ opacity: faqBright }}
+          className="pointer-events-none absolute right-0 bottom-0 translate-x-1/2 translate-y-1/2 w-[110rem] h-[110rem] rounded-full blur-[60px] bg-[radial-gradient(closest-side,rgba(250,214,87,0.28),transparent_70%)]"
+        />
+      )}
 
       <div className="relative max-w-3xl mx-auto px-6 md:px-10">
         <motion.div
@@ -1545,7 +1534,7 @@ function ClosingCTASection() {
           <div className="w-px h-16 bg-[var(--color-border-medium)] shrink-0" />
           <p className="font-serif font-medium tracking-tight leading-[1.08] text-[1.85rem] sm:text-[2.3rem] md:text-[2.7rem] text-[var(--color-content-primary)]">
             <span className="block">Single subscription.</span>
-            <span className="block bg-gradient-to-r from-[#fef0bf] via-[#fad657] to-[#b08d3e] bg-clip-text text-transparent">
+            <span className="block text-[var(--color-content-accent)]">
               Multiple benefits.
             </span>
           </p>
