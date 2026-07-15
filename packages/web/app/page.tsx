@@ -1121,6 +1121,9 @@ function Footer() {
           <a href="https://t.me/komunify" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--color-content-accent)] transition-colors">
             Telegram
           </a>
+          <a href="https://www.instagram.com/komunify.app/" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--color-content-accent)] transition-colors">
+            Instagram
+          </a>
         </div>
       </div>
     </footer>
