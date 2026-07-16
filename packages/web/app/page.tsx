@@ -55,14 +55,23 @@ function Header() {
         </nav>
 
         <div className="hidden md:flex items-center gap-3">
-          <a
-            href="https://www.freighter.app/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[13px] tracking-wide text-[var(--color-content-secondary)] hover:text-[var(--color-content-accent)] transition-colors"
-          >
-            Get wallet
-          </a>
+          {isConnected ? (
+            <Link
+              href="/dashboard"
+              className="text-[13px] tracking-wide text-[var(--color-content-secondary)] hover:text-[var(--color-content-accent)] transition-colors"
+            >
+              Dashboard
+            </Link>
+          ) : (
+            <a
+              href="https://www.freighter.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[13px] tracking-wide text-[var(--color-content-secondary)] hover:text-[var(--color-content-accent)] transition-colors"
+            >
+              Get wallet
+            </a>
+          )}
 
           {isConnected && address ? (
             <button
@@ -141,7 +150,7 @@ interface LiveStatsFixture {
 
 function CountUp({ value, decimals = 0 }: { value: number; decimals?: number }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-20%' });
+  const isInView = useInView(ref, { once: true, margin: '0px 0px -10% 0px' });
   const [formattedValue, setFormattedValue] = useState((0).toFixed(decimals));
   const latestValue = useRef(value);
   const latestDecimals = useRef(decimals);
@@ -160,7 +169,7 @@ function CountUp({ value, decimals = 0 }: { value: number; decimals?: number }) 
     if (!isInView) return;
 
     const controls = animate(0, latestValue.current, {
-      duration: 1.4,
+      duration: 0.8,
       ease: [0.19, 1, 0.22, 1],
       onUpdate: (current) => setFormattedValue(current.toFixed(latestDecimals.current)),
       onComplete: () => {
@@ -424,11 +433,67 @@ function SectionFlourish({ lines = 'both' }: { lines?: 'both' | 'upper' | 'lower
 }
 
 // Hero section
+const demoVideos = {
+  how: { src: 'demo.mp4', poster: 'demo-poster.jpg', label: 'How it works' },
+  howto: { src: 'howto.mp4', poster: 'howto-poster.jpg', label: 'How to' },
+} as const;
+
 function HeroSection() {
   const heroRef = useRef<HTMLElement | null>(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
   const heroBright = useTransform(scrollYProgress, [0, 0.6], [0, 1]);
+  const [demoTab, setDemoTab] = useState<'how' | 'howto'>('howto');
+  const [needsUnmute, setNeedsUnmute] = useState(false);
+  const demoVideoRef = useRef<HTMLVideoElement | null>(null);
+
+  useEffect(() => {
+    const v = demoVideoRef.current;
+    if (!v) return;
+    if (demoTab === 'howto') {
+      v.muted = false;
+      v.volume = 1;
+      v.play()
+        .then(() => setNeedsUnmute(false))
+        .catch((err) => {
+          // Mute-fallback only for autoplay policy blocks; AbortError from an
+          // interrupting pause() (StrictMode double-invoke) must not mute us.
+          if (!(err instanceof DOMException) || err.name !== 'NotAllowedError') return;
+          v.muted = true;
+          v.play().catch(() => {});
+          setNeedsUnmute(true);
+        });
+    } else {
+      v.muted = true;
+      v.play().catch(() => {});
+      setNeedsUnmute(false);
+    }
+    return () => {
+      // Detached media elements keep playing audio in Chrome; pause stops it.
+      // Pause ONLY: tearing down src here breaks StrictMode's remount on first load.
+      v.pause();
+    };
+  }, [demoTab]);
+
+  const unmute = () => {
+    const v = demoVideoRef.current;
+    if (!v) return;
+    v.muted = false;
+    v.volume = 1;
+    v.play().catch(() => {});
+    setNeedsUnmute(false);
+  };
+
+  useEffect(() => {
+    if (!needsUnmute) return;
+    const handler = () => unmute();
+    window.addEventListener('pointerdown', handler, { once: true });
+    window.addEventListener('keydown', handler, { once: true });
+    return () => {
+      window.removeEventListener('pointerdown', handler);
+      window.removeEventListener('keydown', handler);
+    };
+  }, [needsUnmute]);
 
   return (
     <section ref={heroRef} className="relative overflow-hidden">
@@ -512,8 +577,8 @@ function HeroSection() {
           transition={{ delay: 0.65, duration: 0.7, ease: [0.19, 1, 0.22, 1] }}
           className="mt-8 max-w-xl mx-auto text-center text-[15px] md:text-[16px] leading-relaxed text-[var(--color-content-secondary)]"
         >
-          One subscription, split on-chain the moment it settles. Soroban routes every payment
-          to the project owner, community manager, and platform, and unlocks perks across partner communities.
+          Komunify helps members unlock premium access, discounts, and exclusive offers across community
+          partners with a single on-chain subscription.
         </motion.p>
 
         {/* CTAs */}
@@ -551,21 +616,91 @@ function HeroSection() {
         >
           <ParallaxLayer depth={12} className="p-[1.5px] rounded-[5.5px] bg-gradient-to-br from-[rgba(250,214,87,0.5)] to-[rgba(250,214,87,0.05)] via-[rgba(250,214,87,0.35)]">
             <div className="relative rounded-[4px] overflow-hidden bg-[#111110] aspect-video">
-              {/* Product demo loop (14s, silent) */}
+              {/* Product demo loop (14s, silent) / talking walkthrough (audio on select) */}
               <video
-                src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/demo.mp4`}
-                poster={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/demo-poster.jpg`}
+                key={demoTab}
+                ref={demoVideoRef}
+                src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/${demoVideos[demoTab].src}`}
+                poster={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/${demoVideos[demoTab].poster}`}
                 autoPlay
-                muted
-                loop
+                muted={demoTab === 'how'}
                 playsInline
+                preload="metadata"
+                onEnded={() => setDemoTab((prev) => (prev === 'howto' ? 'how' : 'howto'))}
                 className="absolute inset-0 h-full w-full object-cover"
               />
 
-              {/* Corner tags */}
-              <div className="absolute top-4 left-4 text-[10px] tracking-widest text-[color-mix(in_srgb,var(--color-content-primary)_50%,transparent)] border border-[color-mix(in_srgb,var(--color-content-primary)_15%,transparent)] rounded px-2 py-1 bg-black/30">
-                HOW IT WORKS
+              {/* Player control: video toggle */}
+              <div className="absolute top-3 right-3 z-10 flex items-center gap-1 rounded-full bg-[rgba(10,10,9,0.55)] backdrop-blur-sm p-1">
+                <button
+                  type="button"
+                  aria-pressed={demoTab === 'how'}
+                  onClick={() => setDemoTab('how')}
+                  className={
+                    demoTab === 'how'
+                      ? "px-3 py-1 rounded-full text-[10px] tracking-widest uppercase transition-colors bg-[var(--color-content-accent)] text-[var(--color-content-on-accent)]"
+                      : "px-3 py-1 rounded-full text-[10px] tracking-widest uppercase transition-colors bg-transparent text-[rgba(236,217,193,0.5)] hover:text-[rgba(236,217,193,0.9)]"
+                  }
+                >
+                  How it works
+                </button>
+                <button
+                  type="button"
+                  aria-pressed={demoTab === 'howto'}
+                  onClick={() => setDemoTab('howto')}
+                  className={
+                    demoTab === 'howto'
+                      ? "px-3 py-1 rounded-full text-[10px] tracking-widest uppercase transition-colors bg-[var(--color-content-accent)] text-[var(--color-content-on-accent)]"
+                      : "px-3 py-1 rounded-full text-[10px] tracking-widest uppercase transition-colors bg-transparent text-[rgba(236,217,193,0.5)] hover:text-[rgba(236,217,193,0.9)]"
+                  }
+                >
+                  How to
+                </button>
               </div>
+
+              {needsUnmute && demoTab === 'howto' && (
+                <button
+                  type="button"
+                  aria-label="Turn sound on"
+                  onClick={unmute}
+                  className="absolute bottom-3 right-3 z-10 inline-flex items-center gap-1.5 rounded-full bg-[var(--color-content-accent)] text-[var(--color-content-on-accent)] px-3 py-1.5 text-[10px] tracking-widest uppercase"
+                >
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                    <polygon points="4 8 8 8 12 4 12 20 8 16 4 16 4 8" />
+                    <path d="M16 8a5 5 0 0 1 0 8" />
+                    <path d="M18.5 5.5a9 9 0 0 1 0 13" />
+                  </svg>
+                  Turn on sound
+                </button>
+              )}
+
+              {needsUnmute && demoTab === 'howto' && (
+                <motion.div
+                  aria-hidden
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1, x: [0, 4, 0] }}
+                  transition={{
+                    opacity: { delay: 0.5, duration: 0.5, ease: EASE },
+                    x: { delay: 0.5, duration: 2.2, repeat: Infinity, ease: 'easeInOut' },
+                  }}
+                  className="pointer-events-none hidden md:block absolute bottom-1.5 right-[9.5rem] z-10 text-[var(--color-content-accent)]"
+                >
+                  <svg width="80" height="40" viewBox="0 0 80 40" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
+                    <motion.path
+                      d="M 6 12 C 26 4, 44 6, 66 20"
+                      initial={{ pathLength: 0 }}
+                      animate={{ pathLength: 1 }}
+                      transition={{ delay: 0.55, duration: 0.7, ease: EASE }}
+                    />
+                    <motion.path
+                      d="M 56 10 L 66 20 L 52 25"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 1.15, duration: 0.25 }}
+                    />
+                  </svg>
+                </motion.div>
+              )}
 
             </div>
           </ParallaxLayer>
@@ -785,9 +920,10 @@ function HowItWorks() {
 function SplitLedgerSection() {
   const subscriptionCardRef = useRef<HTMLDivElement>(null);
   const payouts = [
-    { name: 'Project owner', percentage: '70%', amount: '$7.00' },
-    { name: 'Community manager', percentage: '20%', amount: '$2.00' },
-    { name: 'Komunify platform', percentage: '10%', amount: '$1.00' },
+    { name: 'Community partner A', percentage: '45%', amount: '$4.50' },
+    { name: 'Community partner B', percentage: '30%', amount: '$3.00' },
+    { name: 'Community partner C', percentage: '15%', amount: '$1.50' },
+    { name: 'Platform fee', percentage: '10%', amount: '$1.00' },
   ];
 
   const handleSubscriptionCardPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -830,18 +966,18 @@ function SplitLedgerSection() {
         >
           <div className="inline-flex items-center gap-2 rounded-full pl-3 pr-4 py-1.5 bg-[color-mix(in_srgb,var(--color-content-accent)_6%,transparent)] text-[11px] tracking-[0.2em] uppercase text-[var(--color-content-accent)]">
             <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-content-accent)]" />
-            Automatic split
+            Distribution scheme
           </div>
           <h2 className="mt-7 font-serif font-medium tracking-tight leading-[1.05] text-[2.4rem] md:text-[3.2rem] text-[var(--color-content-primary)]">
             One payment,{' '}
             <span className="bg-gradient-to-r from-[#fef0bf] via-[#fad657] to-[#b08d3e] bg-clip-text text-transparent">
-              three payouts.
+              every partner paid.
             </span>
           </h2>
           <p className="mt-6 max-w-2xl mx-auto text-[15px] leading-relaxed text-[var(--color-content-secondary)]">
             Every subscription is split on-chain the moment it settles. No invoices, no reconciliation: the
-            Soroban contract routes each share instantly. Each package pool defines its own distribution
-            scheme through its DAO; the live demo contract runs 70/20/10.
+            Soroban contract routes each share instantly. Each package pool defines its own dynamic fee
+            split, decided by that pool's DAO governance, so the payout mix below is illustrative.
           </p>
         </motion.div>
 
@@ -850,7 +986,7 @@ function SplitLedgerSection() {
           whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ delay: 0.12, duration: 0.8, ease: EASE }}
-          className="relative mt-14 md:mt-16 grid grid-cols-1 lg:grid-cols-[1fr_7rem_1fr] gap-8 lg:gap-0 items-stretch"
+          className="relative mt-14 md:mt-16 grid grid-cols-1 lg:grid-cols-[1fr_minmax(13rem,16rem)_1fr] gap-8 lg:gap-0 items-stretch"
         >
           <div
             ref={subscriptionCardRef}
@@ -892,23 +1028,36 @@ function SplitLedgerSection() {
             />
           </div>
 
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ delay: 0.25, duration: 0.7, ease: EASE }}
+            className="lg:hidden mx-auto card-standard px-4 py-3 text-center"
+          >
+            <p className="text-[10px] tracking-[0.22em] text-[var(--color-content-accent)]">DISTRIBUTION SCHEME</p>
+            <p className="mt-1 text-[12px] text-[var(--color-content-secondary)]">Set by DAO vote</p>
+          </motion.div>
+
           <div className="hidden lg:block relative">
             <svg
               className="w-full h-full overflow-visible"
-              viewBox="0 0 100 300"
+              viewBox="0 0 200 300"
               preserveAspectRatio="none"
               aria-hidden="true"
             >
               <defs>
-                <linearGradient id="splitGrad" gradientUnits="userSpaceOnUse" x1="0" y1="150" x2="100" y2="150">
+                <linearGradient id="splitGrad" gradientUnits="userSpaceOnUse" x1="0" y1="150" x2="200" y2="150">
                   <stop offset="0%" stopColor="rgba(250,214,87,0.85)" />
-                  <stop offset="100%" stopColor="rgba(250,214,87,0.25)" />
+                  <stop offset="100%" stopColor="rgba(250,214,87,0.45)" />
                 </linearGradient>
               </defs>
               {[
-                'M -2 150 C 45 150, 45 50, 102 50',
-                'M -2 150 L 102 150',
-                'M -2 150 C 45 150, 45 250, 102 250',
+                'M -2 150 L 62 150',
+                'M 138 150 C 170 150, 170 38, 202 38',
+                'M 138 150 C 165 150, 165 113, 202 113',
+                'M 138 150 C 165 150, 165 188, 202 188',
+                'M 138 150 C 170 150, 170 263, 202 263',
               ].map((d, index) => (
                 <motion.path
                   key={d}
@@ -918,17 +1067,31 @@ function SplitLedgerSection() {
                   strokeWidth={1.5}
                   strokeLinecap="round"
                   vectorEffect="non-scaling-stroke"
-                  initial={{ pathLength: 0, opacity: 0 }}
-                  whileInView={{ pathLength: 1, opacity: 1 }}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
                   viewport={{ once: true, margin: '-80px' }}
                   transition={{ delay: 0.2 + index * 0.08, duration: 0.6, ease: EASE }}
                 />
               ))}
               <circle cx={2} cy={150} r={3} fill="#fad657" />
-              <circle cx={98} cy={50} r={3} fill="#fad657" />
-              <circle cx={98} cy={150} r={3} fill="#fad657" />
-              <circle cx={98} cy={250} r={3} fill="#fad657" />
+              <circle cx={198} cy={38} r={3} fill="#fad657" />
+              <circle cx={198} cy={113} r={3} fill="#fad657" />
+              <circle cx={198} cy={188} r={3} fill="#fad657" />
+              <circle cx={198} cy={263} r={3} fill="#fad657" />
             </svg>
+
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, margin: '-80px' }}
+                transition={{ delay: 0.25, duration: 0.7, ease: EASE }}
+                className="card-standard px-4 py-3 text-center"
+              >
+                <p className="text-[10px] tracking-[0.22em] text-[var(--color-content-accent)]">DISTRIBUTION SCHEME</p>
+                <p className="mt-1 text-[12px] text-[var(--color-content-secondary)]">Set by DAO vote</p>
+              </motion.div>
+            </div>
           </div>
 
           <div className="relative flex flex-col justify-between">
@@ -1127,7 +1290,7 @@ function RoadmapSection() {
       marker: 'Q3 2026',
       descriptor: 'LIVE ON TESTNET',
       title: 'The full loop works',
-      body: 'Wallet connect, subscription payment, automatic 70/20/10 split, and a live on-chain dashboard. Exit metric: loop proven. Every dashboard number is an on-chain read.',
+      body: 'Wallet connect, subscription payment, a dynamic DAO-governed fee split, and a live on-chain dashboard. Exit metric: loop proven. Every dashboard number is an on-chain read.',
       nodeOpacity: 'opacity-100',
     },
     {
@@ -1378,7 +1541,7 @@ const FAQ_ITEMS = [
   {
     question: 'How are payments and revenue shares handled?',
     answer:
-      'Every package is a Soroban pool with its own distribution scheme. When a member subscribes, the contract splits revenue automatically between the community partners in the pool and the platform; the live demo contract runs 70/20/10. Pricing, splits, and partner changes pass a DAO vote, so every share stays transparent and verifiable on-chain, with no manual reconciliation.',
+      'Every package is a Soroban pool with its own distribution scheme. When a member subscribes, the contract splits revenue automatically between the community partners in the pool and the platform, using a dynamic fee split set by that pool\'s DAO. Pricing, splits, and partner changes pass a DAO vote, so every share stays transparent and verifiable on-chain, with no manual reconciliation.',
   },
   {
     question: 'Why is Komunify better?',
@@ -1593,9 +1756,6 @@ function Footer() {
             </a>
           </div>
           <div className="flex gap-6 text-sm text-[var(--color-content-secondary)]">
-            <a href="https://github.com/yoms07/stellar-hackathon" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--color-content-accent)] transition-colors">
-              GitHub
-            </a>
             <a href="#" className="hover:text-[var(--color-content-accent)] transition-colors">
               Documentation
             </a>
