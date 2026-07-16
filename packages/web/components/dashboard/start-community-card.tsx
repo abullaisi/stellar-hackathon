@@ -12,13 +12,16 @@ import { Icon } from '@/components/ui/icon';
  */
 export function StartCommunityCard() {
   return (
-    <section className="card center">
-      <h2 style={{ marginTop: 0 }}>Have something worth reading?</h2>
+    <section className="card">
+      <div className="num-label">
+        <span className="num">09</span> FOR PARTNERS
+      </div>
+      <h2>Have something worth reading?</h2>
       <p className="hint" style={{ marginTop: 0 }}>
         Publish your PDFs, and earn every time a member opens them. Your payouts go straight to your
         wallet. It is free to start and takes about a minute.
       </p>
-      <Button asChild>
+      <Button asChild variant="outline">
         <Link href="/start">
           <Icon name="sparkle" size={15} /> Start your community
         </Link>

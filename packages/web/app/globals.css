@@ -594,3 +594,266 @@ footer {
 footer a {
   color: inherit;
 }
+
+/* ---------- Funnel chrome (prototype index.html / subscribe.html) ----------
+   Pre-subscription states on /dashboard swap the sidenav for a slim topbar + a
+   3-step stepper + centered card layout. See FunnelShell. Prototype class names
+   are reused verbatim (styles.css); the funnel stepper is scoped under
+   .funnel-stepper so it never collides with the existing onboarding .stepper. */
+
+.funnel-shell {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: var(--space-3) var(--space-6) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-border-medium);
+  margin-bottom: var(--space-2);
+}
+.topbar .logo {
+  font-size: 19px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: inherit;
+  text-decoration: none;
+}
+.topbar-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+.topbar-nav .disconnect-link {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.funnel-stepper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-width: 0;
+}
+.funnel-stepper .step {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 1;
+  min-width: 0;
+}
+.funnel-stepper .step-dot {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.funnel-stepper .step.done .step-dot {
+  background: var(--color-bg-accent);
+  color: var(--color-content-on-accent);
+}
+.funnel-stepper .step.active .step-dot {
+  background: var(--color-bg-accent-tint);
+  color: var(--color-content-accent);
+  border: 1px solid var(--color-content-accent);
+}
+.funnel-stepper .step.todo .step-dot {
+  background: transparent;
+  color: var(--color-content-secondary);
+  border: 1px solid var(--color-border-medium);
+}
+.funnel-stepper .step-name {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+.funnel-stepper .step.done .step-name {
+  color: var(--color-content-primary);
+}
+.funnel-stepper .step.active .step-name {
+  color: var(--color-content-accent);
+}
+.funnel-stepper .step.todo .step-name {
+  color: var(--color-content-secondary);
+}
+.funnel-stepper .step-line {
+  flex: 1 1 16px;
+  height: 1px;
+  background: var(--color-border-medium);
+  min-width: 6px;
+}
+.funnel-stepper .step-line.lit {
+  background: var(--color-bg-accent);
+  opacity: 0.5;
+}
+
+/* two-tone headline (board motif: line 1 cream, line 2 gold) */
+.headline {
+  font-size: 44px;
+  font-family: var(--font-display, 'Geist', sans-serif);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin: 0;
+}
+.headline .gold {
+  color: var(--color-content-accent);
+  display: block;
+}
+
+/* numbered section label (board motif: gold number + uppercase) */
+.num-label {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-content-secondary);
+}
+.num-label .num {
+  color: var(--color-content-accent);
+  margin-right: 6px;
+}
+
+/* entitlement / benefit lines */
+.benefit-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-border-medium);
+}
+.benefit-line:last-child {
+  border-bottom: none;
+}
+
+/* avatar group (partner communities cluster) */
+.avatar-group {
+  display: flex;
+  align-items: center;
+}
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  border: 2px solid var(--color-bg-elevated);
+  background: var(--color-bg-accent-tint);
+  color: var(--color-content-accent);
+  overflow: hidden;
+}
+.avatar + .avatar {
+  margin-left: -8px;
+}
+.avatar-note {
+  font-size: 13px;
+  color: var(--color-content-secondary);
+  margin-left: 10px;
+}
+
+/* split allocation rows */
+.alloc-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  column-gap: var(--space-3);
+  row-gap: 6px;
+  padding: var(--space-2) 0;
+}
+.alloc-name {
+  font-size: 14px;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.alloc-pct {
+  font-size: 13px;
+  color: var(--color-content-secondary);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  min-width: 42px;
+}
+.alloc-amt {
+  font-size: 14px;
+  font-weight: 600;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  min-width: 80px;
+}
+.alloc-track {
+  grid-column: 1 / -1;
+  height: 4px;
+  background: var(--color-bg-input);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+.alloc-fill {
+  height: 100%;
+  background: var(--color-bg-accent);
+  border-radius: var(--radius-full);
+}
+
+/* split-flow visual: the ONE sanctioned use of the gold glow */
+.split-flow {
+  box-shadow: 0 0 24px var(--glow-split, rgba(250, 214, 87, 0.35));
+  border-color: var(--color-border-accent);
+}
+
+/* single centered pay flow */
+.pay-col {
+  max-width: 520px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .funnel-stepper {
+    flex-wrap: wrap;
+  }
+  .headline {
+    font-size: 29px;
+  }
+  .topbar {
+    flex-wrap: wrap;
+  }
+}
